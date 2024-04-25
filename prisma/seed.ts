@@ -1,31 +1,19 @@
 import { type Prisma } from "@prisma/client"
 
-import { createPostSlug, extractPostSlug, getPostExcerpt } from "~/helpers/post"
 import { db } from "~/libs/db.server"
 import { hashPassword } from "~/utils/encryption.server"
 import { logEnv } from "~/utils/log.server"
-import { createSlug } from "~/utils/string"
 import { debugCode } from "~/utils/string.server"
 
 import { dataCredentialUsers } from "./credentials/users"
 import { dataPageStatuses } from "./data/page-statuses"
 import { dataPages } from "./data/pages"
-import { dataPostStatuses } from "./data/post-statuses"
-import { dataPosts } from "./data/posts"
 import { dataRoles } from "./data/roles"
 
 /**
  * EDITME: Enable or disable seed items by commenting them
  */
-const enabledSeedItems = [
-  "permissions",
-  "roles",
-  "users",
-  "pageStatuses",
-  "pages",
-  "postStatuses",
-  "posts",
-]
+const enabledSeedItems = ["permissions", "roles", "users", "pageStatuses", "pages"]
 
 async function main() {
   logEnv()
@@ -36,8 +24,6 @@ async function main() {
     users: seedUsers,
     pageStatuses: seedPageStatuses,
     pages: seedPages,
-    postStatuses: seedPostStatuses,
-    posts: seedPosts,
   }
 
   for (const seedName of enabledSeedItems) {
@@ -144,6 +130,7 @@ async function seedUsers() {
         ...userData,
         // FIXME: profile: profile ? { create: profile } : undefined,
         password: userCredential.password ? { create: { hash } } : undefined,
+        activated: false,
       },
       include: { password: { select: { hash: true } } },
     })
@@ -200,76 +187,6 @@ async function seedPages() {
     if (!page) return null
 
     console.info(`📜 Upserted page ${page.title} / ${page.slug}`)
-  }
-}
-
-async function seedPostStatuses() {
-  console.info("\n🪧 Seed post statuses")
-  console.info("🪧 Count post statuses", await db.postStatus.count())
-  // console.info("🪧 Deleted post statuses", await db.postStatus.deleteMany())
-  console.time("🪧 Upserted post statuses")
-
-  for (const statusRaw of dataPostStatuses) {
-    const status = await db.postStatus.upsert({
-      where: { symbol: statusRaw.symbol },
-      create: statusRaw,
-      update: statusRaw,
-    })
-    console.info(`🪧 Upserted post status ${status.symbol} / ${status.name}`)
-  }
-  console.timeEnd("🪧 Upserted post statuses")
-}
-
-async function seedPosts() {
-  console.info("\n📜 Seed posts")
-  console.info("📜 Count posts", await db.post.count())
-  console.info("📜 Deleted posts", await db.post.deleteMany())
-
-  const users = await db.user.findMany({
-    select: { id: true, username: true },
-  })
-
-  const posts = await db.post.findMany({
-    select: { id: true, slug: true },
-  })
-
-  const postStatuses = await db.postStatus.findMany({
-    select: { id: true, symbol: true },
-  })
-
-  for (const postRaw of dataPosts) {
-    const user = users.find(user => user.username === postRaw.username)
-    if (!user) return null
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { username, statusSymbol, ...postSanitized } = postRaw
-
-    const slug = createSlug(postRaw.title) // original-slug
-    const postSlug = createPostSlug(postRaw.title) // modified-slug-nanoid123
-    const existingPost = posts.find(post => {
-      return slug === extractPostSlug(post.slug)
-    })
-    const status = postStatuses.find(status => status.symbol === postRaw.statusSymbol)
-    if (!status) return null
-
-    const postData = {
-      ...postSanitized,
-      // Reuse the same post slug if it already exists
-      slug: existingPost?.slug || postSlug,
-      excerpt: getPostExcerpt(postSanitized.content),
-      userId: user.id,
-      statusId: status.id,
-    }
-
-    const post = await db.post.upsert({
-      where: { slug: postData.slug },
-      update: postData,
-      create: postData,
-    })
-
-    if (!post) return null
-
-    console.info(`📜 Upserted post ${post.title} / ${post.slug}`)
   }
 }
 

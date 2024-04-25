@@ -12,12 +12,13 @@ import { FormDescription, FormErrors, FormField, FormLabel } from "~/components/
 import { Input } from "~/components/ui/input"
 import { InputPassword } from "~/components/ui/input-password"
 import { LinkText } from "~/components/ui/link-text"
-import { configUnallowedKeywords } from "~/configs/unallowed-keywords"
+import { generateUsername } from "~/helpers/auth"
 import { useAppMode } from "~/hooks/use-app-mode"
 import { db } from "~/libs/db.server"
 import { modelUser } from "~/models/user.server"
 import { issueUsernameUnallowed, schemaUserSignUp } from "~/schemas/user"
 import { authService } from "~/services/auth.server"
+import { emailRegister } from "~/services/email.server"
 import { createMeta } from "~/utils/meta"
 import { createTimer } from "~/utils/timer"
 
@@ -43,25 +44,43 @@ export default function SignUpRoute() {
   const [searchParams] = useSearchParams()
   const redirectTo = searchParams.get("redirectTo")
 
-  const [form, { email, fullname, username, password }] = useForm<z.infer<typeof schemaUserSignUp>>(
-    {
-      id: "signup",
-      lastSubmission: actionData?.submission,
-      shouldRevalidate: "onInput",
-      constraint: getFieldsetConstraint(schemaUserSignUp),
-      onValidate({ formData }) {
-        return parse(formData, { schema: schemaUserSignUp })
-      },
-      defaultValue: isModeDevelopment
-        ? {
-            email: "example@example.com",
-            fullname: "Example Name",
-            username: "example",
-            password: "exampleexample",
-          }
-        : {},
+  const [form, { email, fullname, password }] = useForm<z.infer<typeof schemaUserSignUp>>({
+    id: "signup",
+    lastSubmission: actionData?.submission,
+    shouldRevalidate: "onInput",
+    constraint: getFieldsetConstraint(schemaUserSignUp),
+    onValidate({ formData }) {
+      return parse(formData, { schema: schemaUserSignUp })
     },
-  )
+    defaultValue: isModeDevelopment
+      ? {
+          email: "example@example.com",
+          fullname: "Your Name",
+          password: "",
+        }
+      : {},
+  })
+
+  if (actionData?.status === "success") {
+    return (
+      <div className="site-container">
+        <div className="site-section space-y-8">
+          <div className="rounded-md bg-muted p-8">
+            <header className="site-header">
+              <h2 className="inline-flex items-center gap-2 pb-2">
+                <IconMatch icon="email" />
+                <span>You are in! 🚀</span>
+              </h2>
+              <p>Check your inbox and activate your account with the magic link we sent you</p>
+              <p className="font-extralight">
+                If you can't find it in your inbox, please check your spam
+              </p>
+            </header>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="site-container">
@@ -124,21 +143,6 @@ export default function SignUpRoute() {
               </FormField>
 
               <FormField>
-                <FormLabel htmlFor={username.id}>Username</FormLabel>
-                <Input
-                  {...conform.input(username)}
-                  id={username.id}
-                  placeholder="username"
-                  autoFocus={username.error ? true : undefined}
-                  required
-                />
-                <FormDescription id={password.descriptionId}>
-                  4 to 20 characters (letters, numbers, dot, underscore)
-                </FormDescription>
-                <FormErrors>{username}</FormErrors>
-              </FormField>
-
-              <FormField>
                 <FormLabel htmlFor={password.id}>Password</FormLabel>
                 <InputPassword
                   {...conform.input(password, {
@@ -173,15 +177,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const clonedRequest = request.clone()
   const formData = await clonedRequest.formData()
 
+  let username = ""
+  let currentUserCount
+
   const submission = await parse(formData, {
     async: true,
     schema: schemaUserSignUp.superRefine(async (data, ctx) => {
-      const unallowedUsername = configUnallowedKeywords.find(keyword => keyword === data.username)
-      if (unallowedUsername) {
-        ctx.addIssue(issueUsernameUnallowed)
-        return
-      }
-
       const existingEmail = await db.user.findUnique({
         where: { email: data.email },
         select: { id: true },
@@ -195,8 +196,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         return
       }
 
+      currentUserCount = await db.user.count()
+      username = generateUsername(data.fullname, currentUserCount)!
+
       const existingUsername = await db.user.findUnique({
-        where: { username: data.username },
+        where: { username },
         select: { id: true },
       })
       if (existingUsername) {
@@ -211,15 +215,20 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ status: "error", submission }, { status: 400 })
   }
 
-  const newUser = await modelUser.signup(submission.value)
+  const newUser = await modelUser.signup({
+    ...submission.value,
+    username,
+  })
 
   if (!newUser) {
     await timer.delay()
     return json({ status: "error", submission }, { status: 500 })
   }
 
+  if (newUser) {
+    await emailRegister({ originUrl: request.headers.get("origin")!, email: newUser.email })
+  }
+
   await timer.delay()
-  return authService.authenticate("form", request, {
-    successRedirect: "/user/dashboard",
-  })
+  return json({ status: "success", submission }, { status: 200 })
 }

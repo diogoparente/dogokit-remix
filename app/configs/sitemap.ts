@@ -4,9 +4,6 @@ export const configSitemapGroups: ConfigSitemapGroup[] = [
     items: [
       { name: "Landing", to: "/" },
       { name: "About", to: "/about" },
-      { name: "Search", to: "/search" },
-      { name: "Posts", to: "/posts" },
-      { name: "Users", to: "/users" },
     ],
   },
   {
@@ -18,24 +15,10 @@ export const configSitemapGroups: ConfigSitemapGroup[] = [
       { name: "Dashboard", to: "/user/dashboard" },
     ],
   },
-  {
-    title: "Misc",
-    items: [
-      { name: "Blank", to: "/blank" },
-      { name: "Examples", to: "/examples" },
-      { name: "Editor: Tiptap", to: "/examples/tiptap" },
-      { name: "Uploader: Uploadcare", to: "/examples/uploadcare" },
-    ],
-  },
+
   {
     title: "Links",
-    items: [
-      { name: "🐾 Allnimal", url: "https://allnimal.com" },
-      { name: "🐻 Bearmentor", url: "https://bearmentor.com" },
-      { name: "🐱 Catamyst", url: "https://catamyst.com" },
-      { name: "🐶 Dogokit", url: "https://dogokit.allnimal.com" },
-      { name: "🧊 M Haidar Hanif", url: "https://mhaidarhanif.com" },
-    ],
+    items: [],
   },
 ]
 

@@ -7,31 +7,7 @@ export type NavItem = {
   shortcut?: string
 }
 
-export const configNavigationItems: NavItem[] = [
-  {
-    isEnabled: false,
-    path: "/",
-    text: "Home",
-    icon: "house",
-  },
-  {
-    isEnabled: true,
-    path: "/about",
-    text: "About",
-    icon: "info",
-  },
-  {
-    isEnabled: true,
-    path: "/search",
-    text: "Search",
-    icon: "magnifying-glass",
-  },
-  {
-    isEnabled: true,
-    path: "/posts",
-    text: "Posts",
-    icon: "scroll",
-  },
+const userNavigationsItems = [
   {
     isEnabled: true,
     path: "/users",
@@ -45,51 +21,19 @@ export const configNavigationItems: NavItem[] = [
     shortcut: "⌘K+D",
   },
   {
-    path: "/user/posts",
-    text: "Posts",
-    icon: "scroll",
-    shortcut: "⌘K+P",
-  },
-  {
     path: "/user/settings",
     text: "Settings",
     icon: "gear",
     shortcut: "⌘K+S",
   },
   {
-    path: "/user/billing",
-    text: "Billing",
-    icon: "credit-card",
-    shortcut: "⌘K+B",
-  },
-  {
-    path: "/user/notifications",
-    text: "Notifications",
-    icon: "notification",
-    shortcut: "⌘K+N",
-  },
-  {
     path: "/user/account",
     text: "Account",
     icon: "user",
   },
-  {
-    path: "/help",
-    text: "Help",
-    icon: "question",
-    shortcut: "⌘K+H",
-  },
-  {
-    path: "/help/shortcuts",
-    text: "Command Palette",
-    icon: "keyboard",
-    shortcut: "⌘K",
-  },
-  {
-    path: "/user",
-    text: "User",
-    icon: "user",
-  },
+]
+
+const adminNavigationItems = [
   {
     path: "/admin",
     text: "Admin",
@@ -125,11 +69,9 @@ export const configNavigationItems: NavItem[] = [
     text: "Notifications",
     icon: "notification",
   },
-  {
-    path: "/owner",
-    text: "Owner",
-    icon: "crown",
-  },
+]
+
+const ownerNavigationItems = [
   {
     path: "/owner/dashboard",
     text: "Owner Dashboard",
@@ -140,11 +82,57 @@ export const configNavigationItems: NavItem[] = [
     text: "Users",
     icon: "users-four",
   },
+]
+
+export const configNavigationItems: NavItem[] = [
   {
-    path: "/examples",
-    text: "Examples",
-    icon: "bounding-box",
+    isEnabled: false,
+    path: "/",
+    text: "Home",
+    icon: "house",
+  },
+  {
     isEnabled: true,
+    path: "/about",
+    text: "About",
+    icon: "info",
+  },
+  {
+    isEnabled: true,
+    path: "/search",
+    text: "Search",
+    icon: "magnifying-glass",
+  },
+  {
+    isEnabled: true,
+    path: "/posts",
+    text: "Posts",
+    icon: "scroll",
+  },
+  ...userNavigationsItems,
+  ...adminNavigationItems,
+  ...ownerNavigationItems,
+  {
+    path: "/help",
+    text: "Help",
+    icon: "question",
+    shortcut: "⌘K+H",
+  },
+  {
+    path: "/help/shortcuts",
+    text: "Command Palette",
+    icon: "keyboard",
+    shortcut: "⌘K",
+  },
+  {
+    path: "/user",
+    text: "User",
+    icon: "user",
+  },
+  {
+    path: "/owner",
+    text: "Owner",
+    icon: "crown",
   },
   {
     path: "/blank",

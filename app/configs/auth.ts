@@ -17,7 +17,7 @@ export const configAuth: ConfigAuth = {
     {
       label: "Auth0",
       provider: AuthStrategies.AUTH0,
-      isEnabled: true,
+      isEnabled: false,
     },
     {
       label: "GitHub",

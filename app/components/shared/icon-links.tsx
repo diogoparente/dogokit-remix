@@ -12,7 +12,7 @@ export function IconLinks({
 }) {
   return (
     <ul className={cn("flex flex-wrap items-center gap-2", className)} {...props}>
-      {configSiteIconLinks.map(iconLink => (
+      {/* {configSiteIconLinks.map(iconLink => (
         <li key={iconLink.href}>
           <Anchor
             href={iconLink.href}
@@ -25,7 +25,7 @@ export function IconLinks({
             <span className="sr-only">{iconLink.name}</span>
           </Anchor>
         </li>
-      ))}
+      ))} */}
     </ul>
   )
 }

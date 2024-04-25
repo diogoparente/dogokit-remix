@@ -1,19 +1,17 @@
 import { type Prisma } from "@prisma/client"
 import { createCookieSessionStorage } from "@remix-run/node"
+import jwt from "jsonwebtoken"
 import { Authenticator } from "remix-auth"
 
 import { type modelUser } from "~/models/user.server"
 import { sessionStorage } from "~/services/session.server"
 import { convertDaysToSeconds } from "~/utils/datetime"
 import { isProduction, parsedEnv } from "~/utils/env.server"
+
 import { AuthStrategies } from "./auth-strategies"
-import { auth0Strategy } from "./auth-strategies/auth0.strategy"
+// import { auth0Strategy } from "./auth-strategies/auth0.strategy"
 import { formStrategy } from "./auth-strategies/form.strategy"
 import { googleStrategy } from "./auth-strategies/google.strategy"
-
-export interface User {
-  // Add your own user properties here or extend with a type from your database
-}
 
 /**
  * UserSession is stored in the cookie
@@ -33,7 +31,7 @@ export type AuthStrategy = (typeof AuthStrategies)[keyof typeof AuthStrategies]
 
 // Create an instance of the authenticator, pass a generic with what
 // strategies will return and will store in the session
-export const authService = new Authenticator<User>(sessionStorage)
+export const authService = new Authenticator<UserSession>(sessionStorage)
 
 export const authStorage = createCookieSessionStorage({
   cookie: {
@@ -43,11 +41,20 @@ export const authStorage = createCookieSessionStorage({
     sameSite: "lax",
     secrets: [parsedEnv.SESSION_SECRET],
     secure: isProduction,
-    maxAge: convertDaysToSeconds(30), // EDITME: Change session persistence
+    maxAge: convertDaysToSeconds(30),
   },
 })
 
 // Register your strategies below
 authService.use(formStrategy, AuthStrategies.FORM)
 authService.use(googleStrategy, AuthStrategies.GOOGLE)
-authService.use(auth0Strategy, AuthStrategies.AUTH0)
+
+export function verifyToken(token: string) {
+
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET)
+  } catch (error) {
+    console.error("Token verification failed:", error)
+    return false // Token is invalid
+  }
+}

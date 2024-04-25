@@ -21,31 +21,30 @@ export function AppNavigation() {
         <Link to="/" className="focus-ring block rounded-xs transition hover:opacity-75">
           <Logo />
         </Link>
-
-        <ThemeButton size="xs" />
       </div>
 
-      <div>
+      <div className="flex items-center gap-2">
         {userSession && (
-          <div className="flex items-center gap-2">
+          <>
             <ButtonLink to="/new" size="xs">
               <IconMatch icon="plus" />
               <span>New</span>
             </ButtonLink>
             <IndicatorUser size="xs" />
-          </div>
+          </>
         )}
 
         {!userSession && (
-          <div className="flex items-center gap-2">
+          <>
             <ButtonLink to="/logout" size="xs" variant="destructive">
               Log out
             </ButtonLink>
             <ButtonLink to="/" prefetch="intent" size="xs">
               Home
             </ButtonLink>
-          </div>
+          </>
         )}
+        <ThemeButton size="xs" />
       </div>
     </nav>
   )

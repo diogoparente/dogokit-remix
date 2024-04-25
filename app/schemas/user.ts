@@ -17,6 +17,8 @@ const fullname = z
 
 const nickname = z.string().max(50, "Nick name limited to 50 characters")
 
+const activated = z.boolean().optional()
+
 /**
  * Potential improvement:
  * - Shouldn't match the email
@@ -54,10 +56,10 @@ export const schemaLinks = links
 
 export const schemaUserSignUp = z.object({
   fullname,
-  username,
   email,
   password,
   remember,
+  activated,
 })
 
 export const schemaUserLogIn = z.object({

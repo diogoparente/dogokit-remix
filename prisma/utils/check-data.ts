@@ -9,8 +9,6 @@ async function checkData() {
   console.info("👤 Count users", await db.user.count())
   console.info("📃 Count page statuses", await db.pageStatus.count())
   console.info("📃 Count pages", await db.page.count())
-  console.info("🪧 Count post statuses", await db.postStatus.count())
-  console.info("🪧 Count posts", await db.post.count())
 }
 
 checkData()

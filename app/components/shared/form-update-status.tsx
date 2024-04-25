@@ -1,4 +1,4 @@
-import { PageStatus, type PostStatus } from "@prisma/client"
+import { type PageStatus, type PostStatus } from "@prisma/client"
 import { useFetcher } from "@remix-run/react"
 import { useState } from "react"
 

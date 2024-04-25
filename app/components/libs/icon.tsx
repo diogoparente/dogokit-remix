@@ -88,7 +88,14 @@ import {
   UsersFour,
   X as XIcon,
 } from "@phosphor-icons/react"
-import { RiBold, RiItalic, RiLink, RiLinkUnlink, RiStrikethrough } from "@remixicon/react"
+import {
+  RiBold,
+  RiItalic,
+  RiLink,
+  RiLinkUnlink,
+  RiMailCheckLine,
+  RiStrikethrough,
+} from "@remixicon/react"
 import { match } from "ts-pattern"
 
 import { createSlug } from "~/utils/string"
@@ -149,6 +156,7 @@ export const IconMatch = ({ icon, ...props }: { icon: string; className?: string
     .with("editor-link-unlink", () => <RiLinkUnlink {...props} />)
     .with("editor-link", () => <RiLink {...props} />)
     .with("editor-strikethrough", () => <RiStrikethrough {...props} />)
+    .with("email", () => <RiMailCheckLine {...props} />)
     .with("eye-slash", () => <EyeSlash {...props} />)
     .with("eye", () => <Eye {...props} />)
     .with("facebook", () => <SiFacebook {...props} />)

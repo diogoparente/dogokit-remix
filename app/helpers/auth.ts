@@ -53,3 +53,18 @@ export function checkAllowance(
 
   return foundRoles ? true : false
 }
+
+export function generateUsername(fullName: string, count: number): string {
+  // Remove any extra spaces and split the full name into parts
+  const nameParts = fullName.trim().split(/\s+/)
+
+  // Convert the name parts into a single string, all in lowercase
+  const baseUsername = nameParts.join("").toLowerCase()
+
+  // Combine the base username with the current count of users number
+  const username = `${baseUsername}_${count}`
+
+  console.log({ username })
+
+  return username
+}

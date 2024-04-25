@@ -3,5 +3,4 @@ export const AuthStrategies = {
   GOOGLE: "google",
   GITHUB: "github",
   AUTH0: "auth0",
-  OAUTH: "oauth2"
 } as const

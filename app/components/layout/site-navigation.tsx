@@ -35,10 +35,8 @@ function SiteNavigationSmall() {
           prefetch="intent"
           className="focus-ring block rounded-xs transition hover:opacity-75"
         >
-          <Logo text="Dogokit" />
+          <Logo text="squadz" />
         </Link>
-
-        <ThemeButton size="sm" />
       </div>
 
       <div className="flex items-center gap-2">
@@ -65,6 +63,7 @@ function SiteNavigationSmall() {
             <SiteNavigationMenu />
           </>
         )}
+        <ThemeButton size="sm" />
       </div>
     </nav>
   )
@@ -81,10 +80,8 @@ function SiteNavigationLarge() {
     >
       <div className="flex items-center justify-between gap-2">
         <Link to="/" prefetch="intent" className="focus-ring block transition hover:text-primary">
-          <Logo text="Dogokit" />
+          <Logo text="squadz" />
         </Link>
-
-        <ThemeButton />
       </div>
 
       <div className="flex items-center gap-4">
@@ -121,6 +118,7 @@ function SiteNavigationLarge() {
             </>
           )}
         </div>
+        <ThemeButton />
       </div>
     </nav>
   )

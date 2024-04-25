@@ -1,6 +1,5 @@
 import { type MetaFunction } from "@remix-run/node"
 
-import { Debug } from "~/components/shared/debug"
 import { AvatarAuto } from "~/components/ui/avatar-auto"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
 import { createMeta } from "~/utils/meta"
@@ -29,10 +28,6 @@ export default function AdminDashboardRoute() {
           </p>
         </div>
       </header>
-
-      <section className="app-section">
-        <Debug>{userData}</Debug>
-      </section>
     </div>
   )
 }

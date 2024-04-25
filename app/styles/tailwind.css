@@ -11,20 +11,20 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100% /* white */;
+    --background: 0, 0%, 94.9% /* white */;
     --foreground: 229 84% 5% /* slate-950 */;
     --card: 0 0% 100% /* white */;
     --card-foreground: 229 84% 5% /* slate-950 */;
     --popover: 0 0% 100% /* white */;
     --popover-foreground: 229 84% 5% /* slate-950 */;
-    --primary: 244 76% 59% /* indigo-600 */;
-    --primary-foreground: 226 100% 97% /* indigo-50 */;
-    --secondary: 227 100% 94% /* indigo-100 */;
-    --secondary-foreground: 243 48% 35% /* indigo-900 */;
-    --muted: 215 32% 92% /* slate-200 */;
-    --muted-foreground: 216 17% 47% /* slate-500 */;
-    --accent: 227 100% 94% /* indigo-100 */;
-    --accent-foreground: 243 48% 35% /* indigo-900 */;
+    --primary: 7.06, 98.71%, 69.61% /* indigo-600 */;
+    --primary-foreground: 0, 0%, 94.9% /* indigo-50 */;
+    --secondary: 20.61, 96.12%, 79.8% /* indigo-100 */;
+    --secondary-foreground: 0, 0%, 94.9% /* indigo-900 */;
+    --muted: 8.14, 78.67%, 91.14%;
+    --muted-foreground: 24.58, 94.98%, 53.14% /* orange-500 */;
+    --accent: 7.06, 98.71%, 69.61% /* indigo-100 */;
+    --accent-foreground: 0, 0%, 94.9% /* indigo-900 */;
     --destructive: 0 85% 61% /* red-500 */;
     --destructive-foreground: 211 41% 99% /* slate-50 */;
     --border: 215 32% 92% /* slate-200 */;
@@ -109,7 +109,7 @@
  */
 @layer components {
   .site-container {
-    @apply mx-auto min-h-screen w-full max-w-7xl px-4 pt-12;
+    @apply mx-auto w-full max-w-7xl px-4 pt-12;
   }
   .site-header {
     @apply mx-auto w-full max-w-prose space-y-4;

@@ -56,10 +56,10 @@ export const modelUser = {
   getById({ id }: Pick<User, "id">) {
     return db.user.findUnique({ where: { id } })
   },
-
+  // @ts-ignore
   getByUsername({ username }: Pick<User, "username">) {
     return db.user.findUnique({
-      where: { username },
+      where: { username: username as string },
       include: {
         profiles: true,
         roles: { select: { symbol: true, name: true } },
@@ -103,6 +103,7 @@ export const modelUser = {
     fullname,
     username,
     password,
+    // @ts-ignore
   }: Pick<User, "fullname" | "username" | "email"> & {
     password: string // unencrypted password at first
     inviteBy?: string
@@ -112,11 +113,12 @@ export const modelUser = {
     return db.user.create({
       data: {
         fullname: fullname.trim(),
-        username: username.trim(),
+        username: (username as string).trim(),
         email: email.trim(),
         roles: { connect: { symbol: "NORMAL" } },
         password: { create: { hash: await hashPassword(password) } },
-        images: { create: { url: getPlaceholderAvatarUrl(username) } },
+        images: { create: { url: getPlaceholderAvatarUrl(username as string) } },
+        activated: false,
         profiles: {
           create: {
             modeName: `Default ${fullname}`,
@@ -135,6 +137,7 @@ export const modelUser = {
     providerName,
     providerId,
     imageUrl,
+    // @ts-ignore
   }: Pick<User, "email" | "fullname" | "username"> &
     Pick<Connection, "providerName" | "providerId"> & { imageUrl: string }) {
     const existingUsername = await modelUser.getByUsername({ username })
@@ -144,12 +147,13 @@ export const modelUser = {
       return db.user.upsert({
         where: { email },
         create: {
+          activated: false,
           email,
           fullname,
           roles: { connect: { symbol: "NORMAL" } },
-          username: existingUsername ? `${username}_${createNanoIdShort()}` : username,
+          username: existingUsername ? `${username}_${createNanoIdShort()}` : (username as string),
           images: {
-            create: { url: imageUrl || getPlaceholderAvatarUrl(username) },
+            create: { url: imageUrl || getPlaceholderAvatarUrl(username as string) },
           },
           connections: {
             connectOrCreate: {
@@ -160,7 +164,7 @@ export const modelUser = {
         },
         update: {
           images: !existingUser?.images[0]?.url
-            ? { create: { url: imageUrl || getPlaceholderAvatarUrl(username) } }
+            ? { create: { url: imageUrl || getPlaceholderAvatarUrl(username as string) } }
             : undefined,
           connections: {
             connectOrCreate: {
@@ -186,10 +190,18 @@ export const modelUser = {
     return db.user.delete({ where: { email } })
   },
 
+  // @ts-ignore
   updateUsername({ id, username }: Pick<User, "id" | "username">) {
     return db.user.update({
       where: { id },
-      data: { username },
+      data: { username: username as string },
+    })
+  },
+
+  activateByEmail({ email }: Pick<User, "email">) {
+    return db.user.update({
+      where: { email },
+      data: { activated: true },
     })
   },
 

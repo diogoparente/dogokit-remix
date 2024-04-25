@@ -6,10 +6,8 @@ import { Separator } from "~/components/ui/separator"
 import { configNavigationItems } from "~/configs/navigation"
 import { checkAllowance } from "~/helpers/auth"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
-import { modelPostStatus } from "~/models/post-status.server"
 import { authService } from "~/services/auth.server"
 import { cn } from "~/utils/cn"
-import { invariantResponse } from "~/utils/invariant"
 import { createSitemap } from "~/utils/sitemap"
 
 export const handle = createSitemap()
@@ -17,10 +15,7 @@ export const handle = createSitemap()
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authService.isAuthenticated(request, { failureRedirect: "/login" })
 
-  const postStatuses = await modelPostStatus.getAll()
-  invariantResponse(postStatuses, "Post statuses unavailable", { status: 404 })
-
-  return json({ postStatuses })
+  return json({})
 }
 
 export default function UserLayoutRoute() {

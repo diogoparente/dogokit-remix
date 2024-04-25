@@ -39,8 +39,8 @@ interface LogoProps extends React.HTMLAttributes<HTMLElement>, VariantProps<type
 }
 
 export function Logo({ variant, size, className, classNameIcon, text }: LogoProps) {
-  const imageUrl = "/images/logos/dogokit-dog.svg"
-  const altText = "Dog"
+  const imageUrl = "/images/logos/logo.svg"
+  const altText = "squadz"
 
   return (
     <span className={cn(logoVariants({ variant, size, className }))}>

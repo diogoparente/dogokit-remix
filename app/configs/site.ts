@@ -6,16 +6,22 @@
 
 // For general purpose
 export const configSite = {
-  domain: "dogokit.allnimal.com",
+  domain: "squadz.io",
 
   // Recommended: 60 characters
-  name: "Dogokit", // Can be different with title
-  title: "Dogokit", // Can be different with name
-  slug: "dogokit",
+  name: "squadz", // Can be different with title
+  title: "squadz", // Can be different with name
+  slug: "squadz",
 
   // Recommended: 155-160 characters
-  description:
-    "Web app template kit using Remix, React, Tailwind CSS, Radix UI, Prisma ORM, and more",
+  description: "Your people, one place",
+
+  ipsum: {
+    short: "Lorem ipsum dolor sit amet",
+    medium:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    long: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Eget dolor morbi non arcu risus. Molestie nunc non blandit massa enim nec dui nunc. Diam sollicitudin tempor id eu nisl. Arcu non sodales neque sodales ut. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat.",
+  },
 
   languageCode: "en",
   countryCode: "US",
@@ -25,17 +31,7 @@ export const configSite = {
     light: "/images/logos/svg/dogokit-black.svg",
   },
 
-  links: {
-    devTo: "https://dev.to/mhaidarhanif",
-    facebook: "https://facebook.com/mhaidarhanif",
-    github: "https://github.com/mhaidarhanif",
-    hashnode: "https://hashnode.com/mhaidarhanif",
-    instagram: "https://instagram.com/mhaidarhanif_",
-    showwcase: "https://showwcase.com/mhaidarhanif",
-    twitter: "https://twitter.com/mhaidarhanif",
-    website: "https://dogokit.allnimal.com",
-    youtube: "https://youtube.com/mhaidarhanif",
-  },
+  links: {},
 
   twitter: {
     site: "@mhaidarhanif",
@@ -49,15 +45,13 @@ export const configSite = {
   },
 
   company: {
-    name: "Allnimal",
-    handle: "@allnimal",
-    url: "https://allnimal.com",
+    name: "squadz",
+    handle: "@squadz",
+    url: "https://squadz.io",
   },
 
-  mailingListName: "All-in-One Kit",
-
   // Setup all the available paths in app/configs/navigation.ts
-  navItems: ["/", "/about", "/search", "/posts", "/users", "/examples"],
+  navItems: ["/", "/about"],
 }
 
 // The order matters on what being shown first
