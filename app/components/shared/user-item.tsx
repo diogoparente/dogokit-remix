@@ -13,7 +13,7 @@ export function UserItem({ user }: { user: JsonifyPrisma<typeof modelUser.getWit
         <AvatarAuto user={user} imageUrl={user.images[0]?.url} />
         <div>
           <h5>{user.fullname}</h5>
-          <p className="text-sm text-muted-foreground">@{user.username}</p>
+          <p className="text-tertiary-foreground text-sm">@{user.username}</p>
         </div>
       </div>
     </Link>

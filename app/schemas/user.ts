@@ -55,9 +55,7 @@ export const schemaLink = link
 export const schemaLinks = links
 
 export const schemaUserSignUp = z.object({
-  fullname,
   email,
-  password,
   remember,
   activated,
 })

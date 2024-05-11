@@ -150,7 +150,7 @@ export function PaginationNavigation({
     return (
       <Link
         to={`${location.pathname}?${searchParams}`}
-        className="focus-ring flex w-8 justify-center rounded-md p-2 text-muted-foreground transition hover:bg-secondary hover:opacity-75"
+        className="focus-ring text-tertiary-foreground flex w-8 justify-center rounded-md p-2 transition hover:bg-secondary hover:opacity-75"
       >
         {icon}
       </Link>
@@ -182,7 +182,7 @@ export function PaginationNavigation({
                     // Use width to have consistent width although different numbers
                     "focus-ring flex w-8 justify-center rounded-md p-1 transition hover:opacity-75",
                     isActive && "bg-secondary text-primary",
-                    !isActive && "text-muted-foreground hover:bg-secondary",
+                    !isActive && "text-tertiary-foreground hover:bg-secondary",
                   )}
                 >
                   {pageNumber}
@@ -220,25 +220,25 @@ export function PaginationSearch({
       <div className="w-full space-y-2 text-sm">
         {/* Not found anything from search */}
         {!queryParam && count <= 0 && isDefaultShow && (
-          <p className="text-muted-foreground">No {itemName} found</p>
+          <p className="text-tertiary-foreground">No {itemName} found</p>
         )}
 
         {/* Not found anything from search */}
         {queryParam && count <= 0 && (
-          <p className="text-muted-foreground">
+          <p className="text-tertiary-foreground">
             No {itemName} found with keyword "{queryParam}"
           </p>
         )}
 
         {/* Without search query keyword */}
         {!queryParam && count > 0 && (
-          <p className="space-x-2 text-muted-foreground">
+          <p className="text-tertiary-foreground space-x-2">
             <span>
               {pluralItemsText} in page {pageParam}
             </span>
 
             {isVerbose && (
-              <span className="text-muted-foreground/50">
+              <span className="text-tertiary-foreground/50">
                 (from total of {pluralizeWord(itemName, totalItems)} in{" "}
                 {pluralizeWord("page", totalPages)})
               </span>
@@ -248,7 +248,7 @@ export function PaginationSearch({
 
         {/* With search query keyword */}
         {queryParam && count > 0 && (
-          <p className="space-x-2 text-muted-foreground">
+          <p className="text-tertiary-foreground space-x-2">
             <span>
               "{queryParam}" found {pluralItemsText} in page {pageParam}
             </span>

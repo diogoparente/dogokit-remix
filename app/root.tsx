@@ -45,6 +45,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const userData = await modelUser.getForSession({ id: userSession.id })
+
+  console.log({ userData })
+
   if (!userData) return redirect(`/logout`)
 
   return json({

@@ -2,10 +2,7 @@ import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/nod
 import { Link, useLoaderData } from "@remix-run/react"
 
 import { AvatarAuto } from "~/components/ui/avatar-auto"
-import { Card } from "~/components/ui/card"
-import { configUserDashboard } from "~/configs/user-dashboard"
 import { requireUser } from "~/helpers/auth"
-import { db } from "~/libs/db.server"
 import { createMeta } from "~/utils/meta"
 import { createSitemap } from "~/utils/sitemap"
 
@@ -36,7 +33,7 @@ export default function UserDashboardRoute() {
             <span className="hidden lg:inline">Hi, </span>
             {user.fullname}
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-tertiary-foreground">
             <span>{user.email} / </span>
             <Link to={`/${user.username}`} className="hover:text-primary">
               @{user.username}
@@ -44,6 +41,7 @@ export default function UserDashboardRoute() {
           </p>
         </div>
       </header>
+      <div>Hello world</div>
     </div>
   )
 }

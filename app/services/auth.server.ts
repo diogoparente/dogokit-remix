@@ -50,11 +50,10 @@ authService.use(formStrategy, AuthStrategies.FORM)
 authService.use(googleStrategy, AuthStrategies.GOOGLE)
 
 export function verifyToken(token: string) {
-
   try {
     return jwt.verify(token, process.env.JWT_SECRET)
   } catch (error) {
     console.error("Token verification failed:", error)
-    return false // Token is invalid
+    throw new Error("Token is invalid")
   }
 }

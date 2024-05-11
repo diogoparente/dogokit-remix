@@ -11,6 +11,7 @@ import { cn } from "~/utils/cn"
 
 interface LinkTextProps extends LinkProps {
   disabled?: boolean
+  alt: string
 }
 
 export function LinkText({ to = "/", disabled = false, children, className }: LinkTextProps) {
@@ -18,7 +19,7 @@ export function LinkText({ to = "/", disabled = false, children, className }: Li
     <Link
       to={to}
       className={cn(
-        "prose-a-styles font-semibold",
+        "prose-a-styles font-semibold transition",
         disabled && "cursor-not-allowed opacity-75",
         className,
       )}

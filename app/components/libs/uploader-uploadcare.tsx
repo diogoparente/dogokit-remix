@@ -340,7 +340,7 @@ export function PreviewFiles({
 
   if (!hasFiles) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-tertiary-foreground text-sm">
         {multiple ? "No multiple files yet." : "No one file yet."}
       </p>
     )

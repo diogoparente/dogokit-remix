@@ -31,7 +31,7 @@ export function PostItem({ post }: { post: JsonifyPrisma<typeof modelPost.getByS
           <p className="hidden sm:block">{post.excerpt}</p>
         </div>
 
-        <p className="text-sm text-muted-foreground">
+        <p className="text-tertiary-foreground text-sm">
           <time>{formatPublished(post.createdAt)}</time>
         </p>
 

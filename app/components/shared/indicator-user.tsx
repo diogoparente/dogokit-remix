@@ -21,9 +21,10 @@ interface IndicatorUserProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof avatarAutoVariants> {
   align?: "center" | "start" | "end" | undefined
+  allowRestrictedRoutes: boolean
 }
 
-export function IndicatorUser({ align = "end", size }: IndicatorUserProps) {
+export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: IndicatorUserProps) {
   const { userData } = useRootLoaderData()
   const { isModeDevelopment } = useAppMode()
 
@@ -57,36 +58,44 @@ export function IndicatorUser({ align = "end", size }: IndicatorUserProps) {
         <AvatarAuto user={userData} imageUrl={userData.images[0]?.url} size={size} />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align={align} className="w-56 overflow-scroll">
-        <DropdownMenuLabel>
-          <p className="text-base font-semibold">{userData.fullname}</p>
-          <p className="text-sm font-semibold text-muted-foreground">
-            <Link to={`/${userData.username}`} prefetch="intent">
-              @{userData.username}
-            </Link>
-          </p>
-        </DropdownMenuLabel>
+      {allowRestrictedRoutes ? (
+        <DropdownMenuContent align={align} className="w-56 overflow-scroll">
+          <DropdownMenuLabel>
+            <p className="text-base font-semibold">{userData.fullname}</p>
+            <p className="text-tertiary-foreground text-sm font-semibold">
+              <Link to={`/${userData.username}`} prefetch="intent">
+                @{userData.username}
+              </Link>
+            </p>
+          </DropdownMenuLabel>
 
-        <DropdownMenuSeparator />
-        <DropdownMenuGroupItems
-          items={[
-            ...profileNavItem(userData.username),
-            ...configNavigationItems.filter(item => userNavItems.includes(item.path)),
-          ]}
-        />
-
-        {isModeDevelopment && <DropdownMenuSeparator />}
-        {isModeDevelopment && (
+          <DropdownMenuSeparator />
           <DropdownMenuGroupItems
-            items={configNavigationItems.filter(item => devNavItems.includes(item.path))}
+            items={[
+              ...profileNavItem(userData!.username!),
+              ...configNavigationItems.filter(item => userNavItems.includes(item.path)),
+            ]}
           />
-        )}
 
-        <DropdownMenuSeparator />
-        <DropdownMenuGroupItems
-          items={configNavigationItems.filter(item => authNavItems.includes(item.path))}
-        />
-      </DropdownMenuContent>
+          {isModeDevelopment && <DropdownMenuSeparator />}
+          {isModeDevelopment && (
+            <DropdownMenuGroupItems
+              items={configNavigationItems.filter(item => devNavItems.includes(item.path))}
+            />
+          )}
+
+          <DropdownMenuSeparator />
+          <DropdownMenuGroupItems
+            items={configNavigationItems.filter(item => authNavItems.includes(item.path))}
+          />
+        </DropdownMenuContent>
+      ) : (
+        <DropdownMenuContent>
+          <DropdownMenuGroupItems
+            items={configNavigationItems.filter(item => authNavItems.includes(item.path))}
+          />
+        </DropdownMenuContent>
+      )}
     </DropdownMenu>
   )
 }

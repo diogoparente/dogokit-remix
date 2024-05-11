@@ -35,7 +35,7 @@ export default function RedirectsRoute() {
                 <code>{redirectItem.path}</code>
               </Link>
 
-              <span className="text-muted-foreground"> &rarr; </span>
+              <span className="text-tertiary-foreground"> &rarr; </span>
 
               {redirectItem.url && (
                 <Anchor href={redirectItem.url}>

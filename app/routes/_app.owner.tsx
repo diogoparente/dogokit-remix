@@ -16,6 +16,7 @@ export const handle = createSitemap()
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { userIsAllowed } = await requireUser(request, ["ADMIN"])
   if (!userIsAllowed) return redirect("/")
+
   return null
 }
 

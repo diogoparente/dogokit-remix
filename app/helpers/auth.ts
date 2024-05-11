@@ -64,7 +64,5 @@ export function generateUsername(fullName: string, count: number): string {
   // Combine the base username with the current count of users number
   const username = `${baseUsername}_${count}`
 
-  console.log({ username })
-
   return username
 }

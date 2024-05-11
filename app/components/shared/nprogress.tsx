@@ -56,7 +56,7 @@ function Bar({ animationDuration, progress }: { animationDuration: number; progr
 function Spinner() {
   return (
     <div className="fixed bottom-4 right-4 z-50 block">
-      <IconMatch icon="spinner-gap" className="animate-spin text-4xl text-primary duration-1000" />
+      <IconMatch icon="spinner-gap" className="animate-spin text-4xl text-primary" />
     </div>
   )
 }

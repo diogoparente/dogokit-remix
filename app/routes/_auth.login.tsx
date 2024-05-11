@@ -4,6 +4,7 @@ import { json, type ActionFunctionArgs, type MetaFunction } from "@remix-run/nod
 import { Form, useActionData, useNavigation, useSearchParams } from "@remix-run/react"
 import { z } from "zod"
 
+import { CenteredSection } from "~/components/layout/centered-section"
 import { IconMatch } from "~/components/libs/icon"
 import { AuthButtons } from "~/components/shared/auth-buttons"
 import { SectionOr } from "~/components/shared/section-or"
@@ -12,7 +13,6 @@ import { FormDescription, FormErrors, FormField, FormLabel } from "~/components/
 import { Input } from "~/components/ui/input"
 import { InputPassword } from "~/components/ui/input-password"
 import { LinkText } from "~/components/ui/link-text"
-import { useAppMode } from "~/hooks/use-app-mode"
 import { db } from "~/libs/db.server"
 import { schemaUserLogIn } from "~/schemas/user"
 import { authService } from "~/services/auth.server"
@@ -34,7 +34,6 @@ export const loader = ({ request }: ActionFunctionArgs) => {
 
 export default function SignUpRoute() {
   const actionData = useActionData<typeof action>()
-  const { isModeDevelopment } = useAppMode()
 
   const navigation = useNavigation()
   const isSubmitting = navigation.state === "submitting"
@@ -50,86 +49,93 @@ export default function SignUpRoute() {
     onValidate({ formData }) {
       return parse(formData, { schema: schemaUserLogIn })
     },
-    defaultValue: isModeDevelopment
-      ? { email: "example@example.com", password: "exampleexample" }
-      : {},
+    defaultValue: {},
   })
 
   return (
-    <div className="site-container">
-      <div className="site-section-md space-y-8">
-        <header className="site-header">
-          <h2 className="inline-flex items-center gap-2">
-            <IconMatch icon="sign-in" />
-            <span>Log in to continue</span>
-          </h2>
-          <p>
-            Don't have an account?{" "}
-            <LinkText to="/signup" className="transition hover:text-primary">
-              Sign up
-            </LinkText>
-          </p>
-        </header>
+    <CenteredSection>
+      <div className="site-container">
+        <div className="site-section-md space-y-8">
+          <header className="site-header">
+            <h2 className="inline-flex items-center gap-2">
+              <IconMatch icon="sign-in" />
+              <span>Log in to continue</span>
+            </h2>
+            <p>
+              Don't have an account?{" "}
+              <LinkText to="/signup" className="transition">
+                Sign up
+              </LinkText>
+            </p>
+          </header>
 
-        <section className="space-y-2">
-          <AuthButtons />
-        </section>
+          <section className="space-y-2">
+            <AuthButtons />
+          </section>
 
-        <SectionOr />
+          <SectionOr />
 
-        <section>
-          <Form
-            replace
-            action="/login"
-            method="POST"
-            className="flex flex-col gap-2"
-            {...form.props}
-          >
-            <fieldset className="flex flex-col gap-2" disabled={isSubmitting}>
-              {redirectTo ? <input type="hidden" name="redirectTo" value={redirectTo} /> : null}
+          <section>
+            <Form
+              replace
+              action="/login"
+              method="POST"
+              className="flex flex-col gap-2"
+              {...form.props}
+            >
+              <fieldset className="flex flex-col gap-2" disabled={isSubmitting}>
+                {redirectTo ? <input type="hidden" name="redirectTo" value={redirectTo} /> : null}
 
-              <FormField>
-                <FormLabel htmlFor={email.id}>Email</FormLabel>
-                <Input
-                  {...conform.input(email, {
-                    type: "email",
-                    description: true,
-                  })}
-                  id={email.id}
-                  placeholder="yourname@example.com"
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                  autoFocus={email.error ? true : undefined}
-                  required
-                />
-                <FormErrors>{email}</FormErrors>
-              </FormField>
+                <FormField>
+                  <FormLabel htmlFor={email.id}>Email</FormLabel>
+                  <Input
+                    {...conform.input(email, {
+                      type: "email",
+                      description: true,
+                    })}
+                    id={email.id}
+                    placeholder="yourname@example.com"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    autoFocus={email.error ? true : undefined}
+                    required
+                  />
+                  <FormErrors>{email}</FormErrors>
+                </FormField>
 
-              <FormField>
-                <FormLabel htmlFor={password.id}>Password</FormLabel>
-                <InputPassword
-                  {...conform.input(password, {
-                    description: true,
-                  })}
-                  id={password.id}
-                  placeholder="Enter password"
-                  autoComplete="current-password"
-                  autoFocus={password.error ? true : undefined}
-                  required
-                  className="w-full"
-                />
-                <FormDescription id={password.descriptionId}>At least 8 characters</FormDescription>
-                <FormErrors>{password}</FormErrors>
-              </FormField>
+                <FormField>
+                  <FormLabel htmlFor={password.id}>Password</FormLabel>
+                  <InputPassword
+                    {...conform.input(password, {
+                      description: true,
+                    })}
+                    id={password.id}
+                    placeholder="Enter password"
+                    autoComplete="current-password"
+                    autoFocus={password.error ? true : undefined}
+                    required
+                    className="w-full"
+                  />
+                  <FormDescription id={password.descriptionId}>
+                    At least 8 characters
+                  </FormDescription>
+                  <FormErrors>{password}</FormErrors>
+                </FormField>
 
-              <ButtonLoading type="submit" loadingText="Logging In..." isLoading={isSubmitting}>
-                Log In
-              </ButtonLoading>
-            </fieldset>
-          </Form>
-        </section>
+                <ButtonLoading
+                  type="submit"
+                  loadingText="Logging In..."
+                  isLoading={isSubmitting}
+                  variant="secondary"
+                >
+                  Log In
+                </ButtonLoading>
+              </fieldset>
+            </Form>
+          </section>
+        </div>
       </div>
-    </div>
+    </CenteredSection>
   )
 }
 

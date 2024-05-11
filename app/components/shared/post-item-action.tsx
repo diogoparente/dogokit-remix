@@ -65,7 +65,7 @@ export function PostItemAction({ post }: { post: JsonifyPrisma<typeof modelPost.
           item={post}
         />
 
-        <code className="hidden text-xs text-muted-foreground lg:inline-flex">{post.slug}</code>
+        <code className="text-tertiary-foreground hidden text-xs lg:inline-flex">{post.slug}</code>
       </div>
     </li>
   )

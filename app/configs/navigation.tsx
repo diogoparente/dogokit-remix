@@ -1,15 +1,14 @@
 export type NavItem = {
-  isEnabled?: boolean
+  isAlwaysVisible?: boolean
   path: string
   text: string
-  icon: string
+  icon?: string
   end?: boolean
   shortcut?: string
 }
 
 const userNavigationsItems = [
   {
-    isEnabled: true,
     path: "/users",
     text: "Users",
     icon: "users-four",
@@ -45,19 +44,9 @@ const adminNavigationItems = [
     icon: "crown-simple",
   },
   {
-    path: "/admin/pages",
-    text: "Pages",
-    icon: "rectangle",
-  },
-  {
     path: "/admin/users",
     text: "Users",
     icon: "users-four",
-  },
-  {
-    path: "/admin/posts",
-    text: "Posts",
-    icon: "scroll",
   },
   {
     path: "/admin/settings",
@@ -86,25 +75,19 @@ const ownerNavigationItems = [
 
 export const configNavigationItems: NavItem[] = [
   {
-    isEnabled: false,
     path: "/",
     text: "Home",
-    icon: "house",
   },
   {
-    isEnabled: true,
     path: "/about",
     text: "About",
-    icon: "info",
   },
   {
-    isEnabled: true,
     path: "/search",
     text: "Search",
     icon: "magnifying-glass",
   },
   {
-    isEnabled: true,
     path: "/posts",
     text: "Posts",
     icon: "scroll",
@@ -135,11 +118,6 @@ export const configNavigationItems: NavItem[] = [
     icon: "crown",
   },
   {
-    path: "/blank",
-    text: "Blank",
-    icon: "square",
-  },
-  {
     path: "/signup",
     text: "Log In",
     icon: "user-plus",
@@ -148,10 +126,12 @@ export const configNavigationItems: NavItem[] = [
     path: "/login",
     text: "Log In",
     icon: "sign-in",
+    isAlwaysVisible: true,
   },
   {
     path: "/logout",
     text: "Log Out",
     icon: "sign-out",
+    isAlwaysVisible: true,
   },
 ]

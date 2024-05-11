@@ -48,7 +48,7 @@ export function DatePicker({
             variant="outline"
             className={cn(
               "h-9 justify-start gap-2 border-input p-2 text-left font-normal",
-              !date && "text-muted-foreground",
+              !date && "text-tertiary-foreground",
               className,
             )}
           >

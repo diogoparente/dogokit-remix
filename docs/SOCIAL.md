@@ -1,6 +1,6 @@
 # Social
 
-This is 🐶 Dogokit Remix
+This is 🐶 squadz Remix
 
 A full featured web app template kit with Remix
 

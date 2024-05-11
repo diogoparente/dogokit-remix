@@ -17,7 +17,7 @@ export const formStrategy = new FormStrategy<UserSession>(async ({ form }) => {
   const user = await db.user.findUnique({
     where: { email },
     select: { id: true },
-  })  
+  })
 
   if (!user) throw new AuthorizationError("User email is not found")
 

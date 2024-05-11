@@ -33,7 +33,7 @@ const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
-  return <p ref={ref} className={cn("text-xs text-muted-foreground", className)} {...props} />
+  return <p ref={ref} className={cn("text-tertiary-foreground text-xs", className)} {...props} />
 })
 FormDescription.displayName = "FormDescription"
 

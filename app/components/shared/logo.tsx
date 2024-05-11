@@ -1,6 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority"
+import React from "react"
 
 import { cn } from "~/utils/cn"
+
+import LogoIcon from "./logo-icon"
 
 const logoVariants = cva("flex items-center gap-1 font-semibold", {
   variants: {
@@ -20,37 +23,17 @@ const logoVariants = cva("flex items-center gap-1 font-semibold", {
   },
 })
 
-const logoIconVariants = cva("", {
-  variants: {
-    size: {
-      default: "size-6 sm:size-8",
-      lg: "size-8 sm:size-10",
-      xl: "size-10 sm:size-12",
-    },
-  },
-  defaultVariants: {
-    size: "default",
-  },
-})
-
 interface LogoProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof logoVariants> {
   text?: string
   classNameIcon?: string
 }
 
-export function Logo({ variant, size, className, classNameIcon, text }: LogoProps) {
-  const imageUrl = "/images/logos/logo.svg"
-  const altText = "squadz"
-
+export function Logo({ variant, size, className, text }: LogoProps) {
   return (
-    <span className={cn(logoVariants({ variant, size, className }))}>
-      <img
-        src={imageUrl}
-        alt={altText}
-        className={cn(logoIconVariants({ size, className: classNameIcon }))}
-        width={35}
-        height={35}
-      />
+    <span
+      className={cn(logoVariants({ variant, size, className }), "duration-200 hover:scale-110")}
+    >
+      <LogoIcon />
       <span className="inline-flex flex-nowrap font-display">{text}</span>
     </span>
   )

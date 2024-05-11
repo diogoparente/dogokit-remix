@@ -35,9 +35,9 @@ export function SiteNavigationMenu() {
             <NavLinkMenu
               to="/"
               onOpenChange={setOpen}
-              className="rounded-xs transition hover:text-primary"
+              className="prose-a-styles rounded-xs transition"
             >
-              <Logo text="Dogokit" className="p-2" />
+              <Logo text="squadz" className="p-2" />
             </NavLinkMenu>
           </SheetHeader>
 
@@ -76,7 +76,7 @@ export function SiteNavigationMenu() {
                   <IconMatch icon="plus" />
                   <span>New</span>
                 </ButtonLink>
-                <IndicatorUser size="sm" />
+                <IndicatorUser size="sm" allowRestrictedRoutes={false} />
               </>
             )}
           </div>
@@ -84,14 +84,13 @@ export function SiteNavigationMenu() {
           <ul className="flex flex-col items-end gap-4">
             {configNavigationItems
               .filter(item => configSite.navItems.includes(item.path))
-              .filter(navItem => navItem.isEnabled)
               .map(navItem => (
                 <NavItemLinkMenu key={navItem.path} onOpenChange={setOpen} navItem={navItem} />
               ))}
           </ul>
         </div>
 
-        <div className="max-w-md text-muted-foreground">
+        <div className="text-tertiary-foreground max-w-md">
           <IconLinks className="justify-end gap-2" classNameIcon="text-base p-1" />
         </div>
       </SheetContent>
@@ -123,7 +122,7 @@ function NavLinkMenu({
         navigate(to.toString())
         onOpenChange?.(false)
       }}
-      className={cn("focus-ring", className)}
+      className={cn("focus-ring !text-foreground", className)}
     >
       {children}
     </NavLink>

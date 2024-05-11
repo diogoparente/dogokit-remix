@@ -35,7 +35,7 @@ export function FormSearch({
         <span className="pointer-events-none absolute flex ps-3">
           <IconMatch
             icon="magnifying-glass"
-            className="text-muted-foreground group-focus-within:text-primary"
+            className="text-tertiary-foreground group-focus-within:text-primary"
           />
         </span>
       </fieldset>

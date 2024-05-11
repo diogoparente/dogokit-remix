@@ -1,4 +1,4 @@
-# [🐶 Dogokit Remix](https://dogokit.allnimal.com)
+# [🐶 squadz Remix](https://dogokit.allnimal.com)
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Remix](https://img.shields.io/badge/Remix-000000?style=flat-square&logo=remix&logoColor=white)
@@ -10,7 +10,7 @@
 
 > 🚧 Migrating to PostgreSQL (Neon) from MySQL (PlanetScale)
 
-Dogokit Remix is a web app template kit by [🐶 Dogokit](https://dogokit.allnimal.com) using Remix,
+squadz Remix is a web app template kit by [🐶 squadz](https://dogokit.allnimal.com) using Remix,
 React, Tailwind CSS, Radix UI, Prisma ORM, and more. Read the latest updates and details on
 [dogokit/dogokit-remix](https://github.com/dogokit/dogokit-remix).
 
@@ -26,7 +26,7 @@ Check out:
 
 > 📝 This notice below can be used to remind about the latest complete docs
 
-The repo is based on [Dogokit](https://dogokit.allnimal.com) that using Remix, React, Tailwind CSS,
+The repo is based on [squadz](https://dogokit.allnimal.com) that using Remix, React, Tailwind CSS,
 Radix UI, Prisma ORM, and more. For more details and documentation,
 [check its repo](https://github.com/dogokit/dogokit-remix).
 
@@ -376,7 +376,7 @@ learn more about the setup.
 ### Change the Contents
 
 - Arrange and remove components as needed.
-- Find and replace various texts, especially the word Dogokit.
+- Find and replace various texts, especially the word squadz.
 
 ### Change Theme Colors
 
@@ -414,13 +414,13 @@ pnpx shadcn-custom-theme primary=indigo secondary=blue accent=violet gray=neutra
 - [🐾 Allnimal](https://allnimal.com)
   - [🐻 Bearmentor](https://bearmentor.com)
   - [🐱 Catamyst](https://catamyst.com)
-  - [🐶 Dogokit](https://dogokit.allnimal.com)
+  - [🐶 squadz](https://dogokit.allnimal.com)
 
 ## Authors
 
 Originally created by [@mhaidarhanif](https://github.com/mhaidarhanif) in 2023, from the 🐾 Allnimal
-group (🐻 Bearmentor, 🐱 Catamyst, 🐶 Dogokit)
+group (🐻 Bearmentor, 🐱 Catamyst, 🐶 squadz)
 
 ---
 
-2024 ©️ 🐶 Dogokit
+2024 ©️ 🐶 squadz

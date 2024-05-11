@@ -26,22 +26,27 @@ generator client {
 // User
 // -----------------------------------------------------------------------------
 
+
 model User {
   id String @id @default(cuid())
-
   email    String  @unique
-  username String  @unique
+  username String? @unique
   phone    String? @unique // numeric string
 
-  fullname String
+  fullname String?
   nickname String?
+
+  companyId String?
+  company Company? @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  onboarded Boolean @default(false)
 
   password    Password?
   connections Connection[]
   roles       Role[]
   activated   Boolean
 
-  images   UserImage[] // multiple user images / avatars / profile pictures
+  images   UserImage[]
   profiles UserProfile[]
   pages    Page[]
 
@@ -50,7 +55,7 @@ model User {
 
   @@index([id])
   @@index([email])
-  @@index([username])
+  @@index([companyId]) // Index for company association
 }
 
 model UserProfile {
@@ -73,6 +78,18 @@ model UserProfile {
 
   @@unique([id, userId])
   @@index([userId])
+}
+
+
+model Company {
+  id String @id @default(cuid())
+  name String
+  users User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
 }
 
 model Role {
@@ -190,26 +207,4 @@ model PageStatus {
   description String? @db.Text // Status definition
 
   pages Page[]
-}
-
-
-// -----------------------------------------------------------------------------
-// Examples
-// -----------------------------------------------------------------------------
-
-model Example {
-  id String @id @default(cuid())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Image {
-  id String @id @default(cuid())
-
-  url     String
-  altText String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

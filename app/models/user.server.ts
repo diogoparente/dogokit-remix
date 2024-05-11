@@ -5,6 +5,8 @@ import { hashPassword } from "~/utils/encryption.server"
 import { getPlaceholderAvatarUrl } from "~/utils/placeholder"
 import { createNanoIdShort } from "~/utils/string"
 
+import { generateTempPassword } from "./helpers/generate-password"
+
 export const modelUser = {
   count() {
     return db.user.count()
@@ -46,6 +48,9 @@ export const modelUser = {
         fullname: true,
         username: true,
         nickname: true,
+        companyId: true,
+        company: true,
+        activated: true,
         email: true,
         roles: { select: { symbol: true, name: true } },
         images: { select: { url: true }, orderBy: { updatedAt: "desc" } },
@@ -100,12 +105,14 @@ export const modelUser = {
 
   async signup({
     email,
-    fullname,
-    username,
+    fullname = "",
+    username = "",
     password,
-    // @ts-ignore
-  }: Pick<User, "fullname" | "username" | "email"> & {
-    password: string // unencrypted password at first
+  }: {
+    email: string
+    fullname?: string
+    username?: string
+    password?: string // unencrypted password at first
     inviteBy?: string
     inviteCode?: string
   }) {
@@ -113,10 +120,12 @@ export const modelUser = {
     return db.user.create({
       data: {
         fullname: fullname.trim(),
-        username: (username as string).trim(),
+        username: `${email.split("@")[0]!.trim()}_${createNanoIdShort()}`,
         email: email.trim(),
-        roles: { connect: { symbol: "NORMAL" } },
-        password: { create: { hash: await hashPassword(password) } },
+        roles: { connect: { symbol: "ADMIN" } },
+        password: {
+          create: { hash: password ? await hashPassword(password) : generateTempPassword() },
+        },
         images: { create: { url: getPlaceholderAvatarUrl(username as string) } },
         activated: false,
         profiles: {
@@ -223,6 +232,17 @@ export const modelUser = {
     return db.user.update({
       where: { id },
       data: { email },
+    })
+  },
+
+  async updatePassword({ id, password }: Pick<User, "id"> & { password: string }) {
+    return db.user.update({
+      where: { id },
+      data: {
+        password: {
+          create: { hash: await hashPassword(password) },
+        },
+      },
     })
   },
 }

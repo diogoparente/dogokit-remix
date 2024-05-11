@@ -117,7 +117,7 @@ export function FormUpdateStatus({
               {itemStatuses.map(status => {
                 return (
                   <li key={status.id}>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-tertiary-foreground text-xs">
                       <IconPostStatus status={status} />
                       <span className="font-semibold"> {status.name}:</span>
                       <span> {status.description}</span>

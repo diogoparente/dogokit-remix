@@ -9,10 +9,8 @@ export const meta: MetaFunction = () =>
     description: `Get new magic link`,
   })
 
-
-
 // TO-DO - add magic link button (a button to trigger a call)
-  export default function ConfirmFailure() {
+export default function ConfirmFailure() {
   return (
     <div className="site-container">
       <div className="site-section-md space-y-8">
@@ -21,14 +19,9 @@ export const meta: MetaFunction = () =>
             <IconMatch icon="sign-in" />
             <span>Something went wrong</span>
           </h2>
-          <p>
-            It looks like your token is not valid.
-          </p>
+          <p>It looks like your token is not valid.</p>
         </header>
-
-    
       </div>
     </div>
   )
 }
-

@@ -18,7 +18,7 @@ export default {
        * To add the fonts, setup in app/configs/fonts.ts
        */
       fontFamily: {
-        display: ["Anybody Variable", ...defaultTheme.fontFamily.sans],
+        display: ["Inter", ...defaultTheme.fontFamily.sans],
         sans: ["Inter Variable", ...defaultTheme.fontFamily.sans],
       },
       /**
@@ -42,9 +42,10 @@ export default {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+        tertiary: {
+          DEFAULT: "hsl(var(--tertiary))",
+          foreground: "hsl(var(--tertiary-foreground))",
+          hover: "hsl(var(--tertiary-hover))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",

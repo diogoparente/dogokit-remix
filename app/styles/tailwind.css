@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;700;900&display=swap");
+
 /* Tailwind CSS */
 @tailwind base;
 @tailwind components;
@@ -6,53 +8,60 @@
 /* 
  * Get from shadcn UI Themes: https://ui.shadcn.com/themes
  * Or run `pnpx shadcn-custom-theme`
- * By default Dogokit is using Tailwind CSS color: Indigo
+ * By default squadz is using Tailwind CSS color: Indigo
 */
+
+:root {
+  --white: 0, 0%, 200%;
+  --black: 217.5, 13.79%, 11.37%;
+}
 
 @layer base {
   :root {
-    --background: 0, 0%, 94.9% /* white */;
-    --foreground: 229 84% 5% /* slate-950 */;
-    --card: 0 0% 100% /* white */;
-    --card-foreground: 229 84% 5% /* slate-950 */;
-    --popover: 0 0% 100% /* white */;
-    --popover-foreground: 229 84% 5% /* slate-950 */;
-    --primary: 7.06, 98.71%, 69.61% /* indigo-600 */;
-    --primary-foreground: 0, 0%, 94.9% /* indigo-50 */;
-    --secondary: 20.61, 96.12%, 79.8% /* indigo-100 */;
-    --secondary-foreground: 0, 0%, 94.9% /* indigo-900 */;
-    --muted: 8.14, 78.67%, 91.14%;
-    --muted-foreground: 24.58, 94.98%, 53.14% /* orange-500 */;
-    --accent: 7.06, 98.71%, 69.61% /* indigo-100 */;
-    --accent-foreground: 0, 0%, 94.9% /* indigo-900 */;
-    --destructive: 0 85% 61% /* red-500 */;
-    --destructive-foreground: 211 41% 99% /* slate-50 */;
-    --border: 215 32% 92% /* slate-200 */;
-    --input: 216 21% 66% /* slate-400 */;
-    --ring: 244 76% 59% /* indigo-600 */;
+    --background: var(--white);
+    --foreground: var(--black);
+    --card: 0 0% 100%;
+    --card-foreground: 229 84% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 229 84% 5%;
+    --primary: 224.28, 76.33%, 48.04%;
+    --primary-foreground: var(--white);
+    --secondary: 44.71, 100%, 50%;
+    --secondary-foreground: var(--black);
+    --tertiary: 153.71, 53.85%, 38.24%;
+    --tertiary-foreground: var(--white);
+    --tertiary-hover: 157.78, 56.02%, 47.25%;
+    --accent: 176.88, 40.74%, 62.94%;
+    --accent-foreground: var(--white);
+    --destructive: 0 85% 61%;
+    --destructive-foreground: var(--white);
+    --border: 215 32% 92%;
+    --input: 216 21% 66%;
+    --ring: 244 76% 59%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 229 84% 5% /* slate-950 */;
-    --foreground: 211 41% 99% /* slate-50 */;
-    --card: 229 84% 5% /* slate-950 */;
-    --card-foreground: 211 41% 99% /* slate-50 */;
-    --popover: 229 84% 5% /* slate-950 */;
-    --popover-foreground: 211 41% 99% /* slate-50 */;
-    --primary: 238 73% 67% /* indigo-500 */;
-    --primary-foreground: 226 100% 97% /* indigo-50 */;
-    --secondary: 243 48% 20% /* indigo-950 */;
-    --secondary-foreground: 226 100% 97% /* indigo-50 */;
-    --muted: 229 47% 11% /* slate-900 */;
-    --muted-foreground: 216 21% 66% /* slate-400 */;
-    --accent: 244 55% 42% /* indigo-800 */;
-    --accent-foreground: 230 94% 82% /* indigo-300 */;
-    --destructive: 0 63% 31% /* red-900 */;
-    --destructive-foreground: 211 41% 99% /* slate-50 */;
-    --border: 218 33% 18% /* slate-800 */;
-    --input: 218 33% 18% /* slate-800 */;
-    --ring: 244 76% 59% /* indigo-600 */;
+    --background: var(--black);
+    --foreground: var(--white);
+    --card: 229 84% 5%;
+    --card-foreground: var(--white);
+    --popover: 229 84% 5%;
+    --popover-foreground: var(--white);
+    --primary: 217.22, 91.22%, 59.8%;
+    --primary-foreground: var(--white);
+    --secondary: 45.08, 100%, 65.29%;
+    --secondary-foreground: var(--black);
+    --tertiary: 198.17, 95.41%, 42.75%;
+    --tertiary-foreground: var(--white);
+    --tertiary-hover: 204.26, 79.91%, 44.9%;
+    --accent: 204.26 79.91% 44.9%;
+    --accent-foreground: var(--white);
+    --destructive: 0 63% 31%;
+    --destructive-foreground: var(--white);
+    --border: 217.5, 8%, 19.61%;
+    --input: 217.5, 8%, 19.61%;
+    --ring: 240, 50%, 25%;
   }
 }
 
@@ -64,9 +73,15 @@
   * {
     @apply border-border;
   }
+
+  html {
+    font-family: Inter, system-ui, sans-serif;
+  }
+
   body {
     @apply cursor-default bg-background text-foreground transition-colors;
     @apply selection:bg-primary/75 selection:text-white;
+    @apply transition-all duration-700;
   }
   img {
     @apply selection:bg-primary/25;
@@ -109,7 +124,7 @@
  */
 @layer components {
   .site-container {
-    @apply mx-auto w-full max-w-7xl px-4 pt-12;
+    @apply mx-auto w-full max-w-7xl grow px-4 pt-12;
   }
   .site-header {
     @apply mx-auto w-full max-w-prose space-y-4;
@@ -133,7 +148,7 @@
     @apply w-full max-w-7xl space-y-2;
   }
   .input-natural {
-    @apply border-transparent bg-transparent p-0 placeholder:text-muted-foreground/30;
+    @apply border-transparent bg-transparent p-0 placeholder:text-tertiary-foreground/30;
     @apply focus:border-transparent focus:outline-none focus:ring-0;
   }
 }
@@ -157,10 +172,10 @@
   }
   .prose-a-styles {
     @apply focus-ring cursor-pointer rounded-xs no-underline transition;
-    @apply text-primary hover:text-primary/75;
+    @apply text-tertiary hover:text-tertiary-hover;
   }
   .prose-pre-styles {
-    @apply bg-muted text-foreground;
+    @apply bg-tertiary text-foreground;
   }
   .prose-code-styles {
     @apply before:content-none after:content-none;
@@ -175,7 +190,7 @@
 
 /* TipTap */
 .tiptap p.is-empty::before {
-  @apply pointer-events-none float-left h-0 text-muted-foreground/30;
+  @apply pointer-events-none float-left h-0 text-tertiary-foreground/30;
 
   content: attr(data-placeholder);
 }
@@ -196,4 +211,11 @@
 
 .uploadcare-config.dark {
   --darkmode: 1;
+}
+
+input:-webkit-autofill {
+  @apply !appearance-none !bg-background !bg-none !text-foreground;
+}
+input:autofill {
+  @apply !appearance-none !bg-background !bg-none !text-foreground;
 }

@@ -20,6 +20,8 @@ export function SiteNavigation() {
   )
 }
 
+const allowRestrictedRoutes = false
+
 function SiteNavigationSmall() {
   const { userSession } = useRootLoaderData()
 
@@ -40,22 +42,25 @@ function SiteNavigationSmall() {
       </div>
 
       <div className="flex items-center gap-2">
-        {userSession && (
-          <>
-            <SiteNavigationMenu />
+        {userSession &&
+          (allowRestrictedRoutes ? (
+            <>
+              <SiteNavigationMenu />
 
-            <ButtonLink to="/new" prefetch="intent" size="sm" className="hidden sm:inline-flex">
-              <IconMatch icon="plus" />
-              <span className="hidden sm:inline">New</span>
-            </ButtonLink>
+              <ButtonLink to="/new" prefetch="intent" size="sm" className="hidden sm:inline-flex">
+                <IconMatch icon="plus" />
+                <span className="hidden sm:inline">New</span>
+              </ButtonLink>
 
-            <IndicatorUser size="sm" />
-          </>
-        )}
+              <IndicatorUser size="sm" allowRestrictedRoutes={allowRestrictedRoutes} />
+            </>
+          ) : (
+            <IndicatorUser size="sm" allowRestrictedRoutes={allowRestrictedRoutes} />
+          ))}
 
         {!userSession && (
           <>
-            <ButtonLink to="/login" prefetch="intent" variant="ghost" size="sm">
+            <ButtonLink to="/login" prefetch="intent" size="sm">
               <IconMatch icon="sign-in" />
               <span className="hidden sm:inline">Log In</span>
             </ButtonLink>
@@ -79,7 +84,7 @@ function SiteNavigationLarge() {
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <Link to="/" prefetch="intent" className="focus-ring block transition hover:text-primary">
+        <Link to="/" prefetch="intent" className="focus-ring block transition">
           <Logo text="squadz" />
         </Link>
       </div>
@@ -88,7 +93,6 @@ function SiteNavigationLarge() {
         <ul className="flex items-center gap-4">
           {configNavigationItems
             .filter(item => configSite.navItems.includes(item.path))
-            .filter(navItem => navItem.isEnabled)
             .map(navItem => (
               <NavItemLink key={navItem.path} navItem={navItem} />
             ))}
@@ -108,15 +112,18 @@ function SiteNavigationLarge() {
             </>
           )}
 
-          {userSession && (
-            <>
-              <ButtonLink to="/new" prefetch="intent" size="sm">
-                <IconMatch icon="plus" />
-                <span>New</span>
-              </ButtonLink>
-              <IndicatorUser size="sm" />
-            </>
-          )}
+          {userSession &&
+            (allowRestrictedRoutes ? (
+              <>
+                <ButtonLink to="/new" prefetch="intent" size="sm">
+                  <IconMatch icon="plus" />
+                  <span>New</span>
+                </ButtonLink>
+                <IndicatorUser size="sm" allowRestrictedRoutes={allowRestrictedRoutes} />
+              </>
+            ) : (
+              <IndicatorUser size="sm" allowRestrictedRoutes={allowRestrictedRoutes} />
+            ))}
         </div>
         <ThemeButton />
       </div>
@@ -136,12 +143,12 @@ export function NavItemLink({
         onClick={onClick}
         className={({ isActive }) =>
           cn(
-            "focus-ring inline-flex select-none items-center gap-2 rounded-md px-2 py-1 font-semibold transition hover:bg-secondary",
-            isActive && "text-primary",
+            "focus-ring inline-flex select-none items-center gap-2 rounded-md px-2 py-1 font-semibold transition hover:scale-110 hover:bg-opacity-80",
+            isActive && "text-tertiary",
           )
         }
       >
-        <IconMatch icon={navItem.icon} />
+        {navItem.icon ? <IconMatch icon={navItem.icon} /> : null}
         <span className="select-none">{navItem.text}</span>
       </NavLink>
     </li>

@@ -70,7 +70,7 @@ export function PageItemAction({ page }: { page: JsonifyPrisma<typeof modelPage.
           item={page}
         />
 
-        <code className="hidden text-xs text-muted-foreground lg:inline-flex">{page.slug}</code>
+        <code className="text-tertiary-foreground hidden text-xs lg:inline-flex">{page.slug}</code>
       </div>
     </li>
   )

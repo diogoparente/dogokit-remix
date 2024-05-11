@@ -16,11 +16,11 @@ export function FormActionItem({ item }: { item: ConfigActionItem }) {
     <Card className="p-2">
       <fetcher.Form method="POST" action={item.actionNew} className="w-full">
         <fieldset disabled={isDisabled} className="flex flex-col items-center gap-2">
-          <div className={cn("text-6xl text-primary", isDisabled && "text-muted-foreground")}>
+          <div className={cn("text-6xl text-primary", isDisabled && "text-tertiary-foreground")}>
             <IconMatch icon={item.icon} />
           </div>
 
-          <h4 className={cn(isDisabled && "text-muted-foreground")}>{item.name}</h4>
+          <h4 className={cn(isDisabled && "text-tertiary-foreground")}>{item.name}</h4>
 
           <div className="grid w-full grid-rows-2 gap-2">
             <ButtonLoading

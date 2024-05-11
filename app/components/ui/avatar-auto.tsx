@@ -44,9 +44,9 @@ interface AvatarAutoProps
 export function AvatarAuto({ user, imageUrl, size, ...props }: AvatarAutoProps) {
   return (
     <Avatar {...props} className={cn(avatarAutoVariants({ size }), "bg-secondary")}>
-      <AvatarImage src={imageUrl || getPlaceholderAvatarUrl(user.username)} alt={user.fullname} />
+      <AvatarImage src={imageUrl || getPlaceholderAvatarUrl(user.username!)} alt={user.fullname!} />
 
-      {!imageUrl && <AvatarFallback>{getNameInitials(user.fullname)}</AvatarFallback>}
+      {!imageUrl && <AvatarFallback>{getNameInitials(user.fullname!)}</AvatarFallback>}
     </Avatar>
   )
 }

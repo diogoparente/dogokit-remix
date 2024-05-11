@@ -14,7 +14,7 @@ export const configSite = {
   slug: "squadz",
 
   // Recommended: 155-160 characters
-  description: "Your people, one place",
+  description: "Everyone, one place",
 
   ipsum: {
     short: "Lorem ipsum dolor sit amet",

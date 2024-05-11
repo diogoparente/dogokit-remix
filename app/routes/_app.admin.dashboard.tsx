@@ -23,7 +23,7 @@ export default function AdminDashboardRoute() {
 
         <div>
           <h2>Admin Dashboard</h2>
-          <p className="text-muted-foreground">
+          <p className="text-tertiary-foreground">
             <span>{userData.email}</span>
           </p>
         </div>
