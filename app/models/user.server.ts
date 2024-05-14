@@ -124,7 +124,9 @@ export const modelUser = {
         email: email.trim(),
         roles: { connect: { symbol: "ADMIN" } },
         password: {
-          create: { hash: password ? await hashPassword(password) : generateTempPassword() },
+          create: {
+            hash: password ? await hashPassword(password) : generateTempPassword(),
+          },
         },
         images: { create: { url: getPlaceholderAvatarUrl(username as string) } },
         activated: false,
@@ -240,7 +242,7 @@ export const modelUser = {
       where: { id },
       data: {
         password: {
-          create: { hash: await hashPassword(password) },
+          update: { hash: await hashPassword(password) },
         },
       },
     })

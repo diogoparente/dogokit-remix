@@ -20,6 +20,8 @@ import { parsedEnvClient } from "~/utils/env.server"
 import { createMeta } from "~/utils/meta"
 import { createSitemap } from "~/utils/sitemap"
 
+import { generateToken } from "./services/token.server"
+
 export const handle = createSitemap()
 
 export const meta: MetaFunction = () =>
@@ -46,7 +48,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const userData = await modelUser.getForSession({ id: userSession.id })
 
-  console.log({ userData })
+  const email = userData?.email
+  const token = email ? await generateToken({ email: userData!.email }) : ""
 
   if (!userData) return redirect(`/logout`)
 
@@ -55,6 +58,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     theme,
     userSession,
     userData,
+    token,
   })
 }
 

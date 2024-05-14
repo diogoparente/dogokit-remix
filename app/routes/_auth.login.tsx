@@ -63,7 +63,7 @@ export default function SignUpRoute() {
             </h2>
             <p>
               Don't have an account?{" "}
-              <LinkText to="/signup" className="transition">
+              <LinkText alt="sign up" to="/signup" className="transition">
                 Sign up
               </LinkText>
             </p>

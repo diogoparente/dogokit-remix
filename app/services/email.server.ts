@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node"
 import { SMTPClient } from "emailjs"
-import jwt from "jsonwebtoken"
+
+import { generateToken } from "./token.server"
 
 const client = new SMTPClient({
   user: process.env.SMTP_EMAIL! ?? "email_not_provided",
@@ -10,7 +11,7 @@ const client = new SMTPClient({
 })
 
 export const emailRegister = async ({ originUrl, email }: { originUrl: string; email: string }) => {
-  const token = jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: "1h" })
+  const token = generateToken({ email })
   const magicLink = `${originUrl}/confirm/${token}`
 
   try {

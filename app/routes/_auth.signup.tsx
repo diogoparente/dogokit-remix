@@ -59,7 +59,7 @@ export default function SignUpRoute() {
       <CenteredSection>
         <div className="site-container">
           <div className="site-section space-y-8">
-            <div className="site-section-md bg-tertiary rounded-md p-8">
+            <div className="site-section-md rounded-md bg-tertiary p-8">
               <header className="site-header">
                 <h2 className="inline-flex items-center gap-2 pb-2">
                   <IconMatch icon="email" />

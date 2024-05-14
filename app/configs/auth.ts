@@ -19,11 +19,6 @@ export const configAuth: ConfigAuth = {
       provider: AuthStrategies.AUTH0,
       isEnabled: false,
     },
-    {
-      label: "GitHub",
-      provider: AuthStrategies.GITHUB,
-      isEnabled: true,
-    },
   ],
 }
 

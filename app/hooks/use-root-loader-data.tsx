@@ -9,6 +9,7 @@ type RootLoaderData = {
   ENV: typeof parsedEnvClient
   userSession: UserSession | undefined
   userData: UserData | undefined
+  token: string | undefined
 }
 
 export function useMatchesData(routeId: string) {
@@ -30,5 +31,6 @@ export function useRootLoaderData() {
     ENV: data?.ENV,
     userSession: data?.userSession,
     userData: data?.userData,
+    token: data?.token,
   }
 }

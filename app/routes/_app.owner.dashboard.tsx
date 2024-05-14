@@ -29,7 +29,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function OwnerDashboardRoute() {
   const { activated } = useLoaderData<typeof loader>()
-  const { userData } = useRootLoaderData()
+  const { userData, token } = useRootLoaderData()
 
   if (!userData) return null
 
@@ -48,7 +48,7 @@ export default function OwnerDashboardRoute() {
             </p>
           </div>
         </header>
-        <OnboardingDialog />
+        <OnboardingDialog token={token!} />
       </div>
     )
   }

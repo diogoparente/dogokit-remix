@@ -1,6 +1,7 @@
 import { z } from "zod"
 
 import { id, redirectTo } from "~/schemas/general"
+import { verifyToken } from "~/services/token.server"
 
 const email = z.string({ required_error: "Email is required" }).min(1).email("This is not an email")
 
@@ -9,6 +10,8 @@ const username = z
   .regex(/^[a-zA-Z0-9_]+$/, "Only alphabet, number, underscore allowed")
   .min(4, "Username require at least 4 characters")
   .max(20, "Username limited to 20 characters")
+
+const token = z.string()
 
 const fullname = z
   .string({ required_error: "Full name is required" })
@@ -76,6 +79,29 @@ export const schemaUserProfileModeName = z.object({ id, modeName })
 export const schemaUserProfileHeadline = z.object({ id, headline })
 export const schemaUserProfileBio = z.object({ id, bio })
 export const schemaUserProfileLinks = z.object({ id, links })
+
+export const schemaUserPasswordReset = z
+  .object({
+    password,
+    confirmPassword,
+    token,
+  })
+  .superRefine(({ password, confirmPassword, token }, ctx) => {
+    if (!verifyToken(token)) {
+      ctx.addIssue({
+        path: ["token"],
+        code: "custom",
+        message: "The token is invalid",
+      })
+    }
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        path: ["confirmPassword"],
+        code: "custom",
+        message: "The passwords did not match",
+      })
+    }
+  })
 
 export const schemaUserPassword = z
   .object({
