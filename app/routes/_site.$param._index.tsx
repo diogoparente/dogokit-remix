@@ -105,7 +105,7 @@ export default function ParamRoute() {
 
           <div>
             <h2 className="text-3xl">{user.fullname}</h2>
-            <h3 className="text-tertiary-foreground text-2xl">@{user.username}</h3>
+            <h3 className="text-2xl text-primary-foreground">@{user.username}</h3>
           </div>
         </section>
 

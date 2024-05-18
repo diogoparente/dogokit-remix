@@ -4,14 +4,19 @@
  * Site-wide information
  */
 
+import { isDevelopment as isDevelopmentClient } from "~/utils/env.client"
+import { isDevelopment as isDevelopmentServer } from "~/utils/env.server"
+
+const isDevelopment = typeof window === "undefined" ? isDevelopmentServer : isDevelopmentClient
+
 // For general purpose
 export const configSite = {
   domain: "squadz.io",
 
   // Recommended: 60 characters
-  name: "squadz", // Can be different with title
-  title: "squadz", // Can be different with name
-  slug: "squadz",
+  name: "stealth", // Can be different with title
+  title: "stealth", // Can be different with name
+  slug: "stealth",
 
   // Recommended: 155-160 characters
   description: "Everyone, one place",
@@ -45,9 +50,10 @@ export const configSite = {
   },
 
   company: {
-    name: "squadz",
-    handle: "@squadz",
-    url: "https://squadz.io",
+    name: "stealth",
+    handle: "@stealth",
+    url: isDevelopment ? "http://localhost:3000/" : "https://squadz.io",
+    canonicalUrl: isDevelopment ? "http://localhost:3000/" : "https://squadz.io/",
   },
 
   // Setup all the available paths in app/configs/navigation.ts

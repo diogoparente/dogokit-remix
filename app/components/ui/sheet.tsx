@@ -65,7 +65,7 @@ const SheetContent = React.forwardRef<
       <SheetPrimitive.Close
         className={cn(
           "absolute right-4 top-4 ring-offset-background transition-opacity",
-          "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+          "focus:ring-ring focus:outline-none focus:ring-2 focus:ring-offset-2",
           "disabled:pointer-events-none data-[state=open]:bg-secondary",
         )}
         asChild
@@ -111,7 +111,7 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn("text-tertiary-foreground text-sm", className)}
+    className={cn("text-sm text-primary-foreground", className)}
     {...props}
   />
 ))

@@ -17,7 +17,7 @@ export function IconLinks({
           <Anchor
             href={iconLink.href}
             className={cn(
-              "focus-ring block rounded-md p-2 text-xl transition hover:text-primary/80",
+              " block rounded-md p-2 text-xl transition hover:text-primary/80",
               classNameIcon,
             )}
           >

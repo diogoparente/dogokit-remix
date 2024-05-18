@@ -33,7 +33,7 @@ export default function UserDashboardRoute() {
             <span className="hidden lg:inline">Hi, </span>
             {user.fullname}
           </h2>
-          <p className="text-tertiary-foreground">
+          <p className="text-primary-foreground">
             <span>{user.email} / </span>
             <Link to={`/${user.username}`} className="hover:text-primary">
               @{user.username}

@@ -36,7 +36,7 @@ export function ThemeMenu({ align = "end", size }: ThemeMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <ButtonIcon variant="ghost" size={size}>
+        <ButtonIcon variant="default" size={size}>
           <IconMatch
             icon="sun"
             className="rotate-0 scale-100 transition-transform dark:-rotate-180 dark:scale-0"

@@ -1,4 +1,4 @@
-import { type PageStatus, type PostStatus } from "@prisma/client"
+import { type PageStatus } from "@prisma/client"
 import { useFetcher } from "@remix-run/react"
 import { useState } from "react"
 
@@ -24,7 +24,6 @@ import {
   SelectValue,
 } from "~/components/ui/select"
 import { type modelPage } from "~/models/page.server"
-import { type modelPost } from "~/models/post.server"
 import { type JsonifyPrisma } from "~/types/jsonify"
 import { cn } from "~/utils/cn"
 
@@ -45,10 +44,9 @@ export function FormUpdateStatus({
   dialogTitle: string
   dialogDescription: string
   dialogAction?: string
-  itemStatuses: PageStatus[] | PostStatus[]
-  item:
-    | JsonifyPrisma<typeof modelPage.getWithStatus>
-    | JsonifyPrisma<typeof modelPost.getWithStatus>
+  itemStatuses: PageStatus[]
+  item: JsonifyPrisma<typeof modelPage.getWithStatus>
+
   className?: string
 }) {
   const [open, setOpen] = useState<boolean>()
@@ -67,7 +65,7 @@ export function FormUpdateStatus({
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger className={cn("focus-ring rounded-full", className)}>
+      <AlertDialogTrigger className={cn(" rounded-full", className)}>
         <BadgePostStatus status={statusOptimistic} className="cursor-pointer" />
       </AlertDialogTrigger>
 
@@ -117,7 +115,7 @@ export function FormUpdateStatus({
               {itemStatuses.map(status => {
                 return (
                   <li key={status.id}>
-                    <p className="text-tertiary-foreground text-xs">
+                    <p className="text-xs text-primary-foreground">
                       <IconPostStatus status={status} />
                       <span className="font-semibold"> {status.name}:</span>
                       <span> {status.description}</span>

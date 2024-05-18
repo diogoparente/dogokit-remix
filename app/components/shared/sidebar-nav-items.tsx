@@ -16,7 +16,7 @@ export function SidebarNavItems({ items }: { items: NavItem[] }) {
               prefetch="intent"
               className={({ isActive }) =>
                 cn(
-                  "focus-ring flex w-full items-center gap-2 rounded-md px-2 py-1 transition",
+                  " flex w-full items-center gap-2 rounded-md px-2 py-1 transition",
                   !isLogout && !isActive && "hover:bg-secondary",
                   !isLogout && isActive && "bg-secondary text-secondary-foreground",
                   isLogout && "hover:bg-destructive hover:text-destructive-foreground",

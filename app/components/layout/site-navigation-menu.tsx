@@ -37,7 +37,7 @@ export function SiteNavigationMenu() {
               onOpenChange={setOpen}
               className="prose-a-styles rounded-xs transition"
             >
-              <Logo text="squadz" className="p-2" />
+              <Logo text="stealth" className="p-2" />
             </NavLinkMenu>
           </SheetHeader>
 
@@ -90,7 +90,7 @@ export function SiteNavigationMenu() {
           </ul>
         </div>
 
-        <div className="text-tertiary-foreground max-w-md">
+        <div className="max-w-md text-primary-foreground">
           <IconLinks className="justify-end gap-2" classNameIcon="text-base p-1" />
         </div>
       </SheetContent>
@@ -122,7 +122,7 @@ function NavLinkMenu({
         navigate(to.toString())
         onOpenChange?.(false)
       }}
-      className={cn("focus-ring !text-foreground", className)}
+      className={cn(" !text-foreground", className)}
     >
       {children}
     </NavLink>

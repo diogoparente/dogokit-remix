@@ -54,7 +54,7 @@ export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: In
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus-ring rounded-full">
+      <DropdownMenuTrigger className=" rounded-full">
         <AvatarAuto user={userData} imageUrl={userData.images[0]?.url} size={size} />
       </DropdownMenuTrigger>
 
@@ -62,7 +62,7 @@ export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: In
         <DropdownMenuContent align={align} className="w-56 overflow-scroll">
           <DropdownMenuLabel>
             <p className="text-base font-semibold">{userData.fullname}</p>
-            <p className="text-tertiary-foreground text-sm font-semibold">
+            <p className="text-sm font-semibold text-primary-foreground">
               <Link to={`/${userData.username}`} prefetch="intent">
                 @{userData.username}
               </Link>

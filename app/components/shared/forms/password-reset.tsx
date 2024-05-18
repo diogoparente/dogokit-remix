@@ -113,16 +113,17 @@ const PasswordReset = ({
 
               <FormErrors>{confirmPassword}</FormErrors>
             </FormField>
-
-            <ButtonLoading
-              type="submit"
-              loadingText="Submitting..."
-              isLoading={isSubmitting}
-              variant="default"
-              disabled={!isEnabled}
-            >
-              Reset Password
-            </ButtonLoading>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <ButtonLoading
+                type="submit"
+                loadingText="Submitting..."
+                isLoading={isSubmitting}
+                variant="default"
+                disabled={!isEnabled}
+              >
+                Reset Password
+              </ButtonLoading>
+            </div>
           </fieldset>
         </Form>
       </section>

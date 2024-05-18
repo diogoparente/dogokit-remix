@@ -10,14 +10,16 @@ export function SiteFooter() {
   return (
     <footer className="space-y-4 p-4">
       <section className="flex flex-wrap items-center justify-center gap-4">
-        <div className={cn("flex-auto space-y-8 rounded-md bg-tertiary p-4")}>
+        <div
+          className={cn("flex-auto space-y-8 rounded-md bg-primary p-4 text-primary-foreground")}
+        >
           <div className="flex flex-col items-center gap-2">
             <Link
               to="/"
               prefetch="intent"
-              className="focus-ring inline-block rounded-xs transition hover:opacity-75"
+              className=" inline-block rounded-xs transition hover:opacity-75"
             >
-              <Logo text="squadz" />
+              <Logo text="stealth" />
             </Link>
             <p className="max-w-sm text-sm font-semibold">{configSite.description}</p>
 

@@ -43,7 +43,7 @@ export default function OwnerDashboardRoute() {
 
           <div>
             <h2>Welcome!</h2>
-            <p className="text-tertiary-foreground">
+            <p className="text-primary-foreground">
               <span>{userData.email}</span>
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function OwnerDashboardRoute() {
 
         <div>
           <h2>Owner Dashboard</h2>
-          <p className="text-tertiary-foreground">
+          <p className="text-primary-foreground">
             <span>{userData.email}</span>
           </p>
         </div>

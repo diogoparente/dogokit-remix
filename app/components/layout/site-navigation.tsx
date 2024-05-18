@@ -32,12 +32,8 @@ function SiteNavigationSmall() {
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <Link
-          to="/"
-          prefetch="intent"
-          className="focus-ring block rounded-xs transition hover:opacity-75"
-        >
-          <Logo text="squadz" />
+        <Link to="/" prefetch="intent" className=" block rounded-xs transition hover:opacity-75">
+          <Logo text={configSite.name} />
         </Link>
       </div>
 
@@ -84,8 +80,8 @@ function SiteNavigationLarge() {
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <Link to="/" prefetch="intent" className="focus-ring block transition">
-          <Logo text="squadz" />
+        <Link to="/" prefetch="intent" className=" block transition">
+          <Logo text="stealth" />
         </Link>
       </div>
 
@@ -143,8 +139,8 @@ export function NavItemLink({
         onClick={onClick}
         className={({ isActive }) =>
           cn(
-            "focus-ring inline-flex select-none items-center gap-2 rounded-md px-2 py-1 font-semibold transition hover:scale-110 hover:bg-opacity-80",
-            isActive && "text-tertiary",
+            " inline-flex select-none items-center gap-2 rounded-md px-2 py-1 font-semibold transition hover:scale-110 hover:bg-opacity-80",
+            isActive && "text-primary",
           )
         }
       >

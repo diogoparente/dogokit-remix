@@ -12,6 +12,8 @@ import { fontLinks } from "~/configs/fonts"
 import { configMeta } from "~/configs/meta"
 import tailwindStyles from "~/styles/tailwind.css"
 
+import { configSite } from "./site"
+
 const stylesheetLinks = [
   { rel: "stylesheet", href: tailwindStyles },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -62,6 +64,12 @@ const faviconLinks = [
   },
 ]
 
+const canonicalLinks = [
+  {
+    rel: "canonical",
+    href: configSite.company.canonicalUrl,
+  },
+]
 const manifestLinks = [
   /**
    * Edit the manifest in app/routes/_app.site[.]webmanifest.tsx
@@ -76,5 +84,6 @@ export const configDocumentLinks = [
   ...fontLinks,
   ...stylesheetLinks,
   ...faviconLinks,
+  ...canonicalLinks,
   ...manifestLinks,
 ]

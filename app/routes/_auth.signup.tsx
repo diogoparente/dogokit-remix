@@ -7,6 +7,7 @@ import { z } from "zod"
 import { CenteredSection } from "~/components/layout/centered-section"
 import { IconMatch } from "~/components/libs/icon"
 import { AuthButtons } from "~/components/shared/auth-buttons"
+import { Card } from "~/components/shared/card"
 import { SectionOr } from "~/components/shared/section-or"
 import { ButtonLoading } from "~/components/ui/button-loading"
 import { FormErrors, FormField, FormLabel } from "~/components/ui/form"
@@ -59,18 +60,18 @@ export default function SignUpRoute() {
       <CenteredSection>
         <div className="site-container">
           <div className="site-section space-y-8">
-            <div className="site-section-md rounded-md bg-tertiary p-8">
+            <Card>
               <header className="site-header">
                 <h2 className="inline-flex items-center gap-2 pb-2">
                   <IconMatch icon="email" />
                   <span>You are in! 🚀</span>
                 </h2>
                 <p>Check your inbox and activate your account with the magic link we sent you</p>
-                <p className="font-extralight">
-                  If you can't find it in your inbox, please check your spam
+                <p className="text-sm font-extralight">
+                  If you can't find it in your inbox, please check your spam box
                 </p>
               </header>
-            </div>
+            </Card>
           </div>
         </div>
       </CenteredSection>
@@ -80,7 +81,7 @@ export default function SignUpRoute() {
   return (
     <CenteredSection>
       <div className="site-container">
-        <div className="site-section-md space-y-8">
+        <Card>
           <header className="site-header">
             <h2 className="inline-flex items-center gap-2">
               <IconMatch icon="user-plus" />
@@ -108,7 +109,7 @@ export default function SignUpRoute() {
               className="flex flex-col gap-2"
               {...form.props}
             >
-              <fieldset className="flex flex-col gap-2" disabled={isSubmitting}>
+              <fieldset className="flex flex-col gap-4" disabled={isSubmitting}>
                 <FormField>
                   <FormLabel htmlFor={email.id}>Email</FormLabel>
                   <Input
@@ -128,6 +129,7 @@ export default function SignUpRoute() {
                 {redirectTo ? <input type="hidden" name="redirectTo" value={redirectTo} /> : null}
 
                 <ButtonLoading
+                  className="mt-2"
                   type="submit"
                   loadingText="Signing Up..."
                   isLoading={isSubmitting}
@@ -138,7 +140,7 @@ export default function SignUpRoute() {
               </fieldset>
             </Form>
           </section>
-        </div>
+        </Card>
       </div>
     </CenteredSection>
   )

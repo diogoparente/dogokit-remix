@@ -71,7 +71,7 @@ const AlertDialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Description
     ref={ref}
-    className={cn("text-tertiary-foreground text-sm", className)}
+    className={cn("text-sm text-primary-foreground", className)}
     {...props}
   />
 ))

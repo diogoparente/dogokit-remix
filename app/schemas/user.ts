@@ -5,6 +5,10 @@ import { verifyToken } from "~/services/token.server"
 
 const email = z.string({ required_error: "Email is required" }).min(1).email("This is not an email")
 
+const dateOfBirth = z.date()
+
+const country = z.string({ required_error: "Nationality is required" })
+
 const username = z
   .string({ required_error: "Username is required" })
   .regex(/^[a-zA-Z0-9_]+$/, "Only alphabet, number, underscore allowed")
@@ -82,6 +86,9 @@ export const schemaUserProfileLinks = z.object({ id, links })
 
 export const schemaUserPasswordReset = z
   .object({
+    fullname,
+    dateOfBirth,
+    country,
     password,
     confirmPassword,
     token,

@@ -7,6 +7,7 @@ import { z } from "zod"
 import { CenteredSection } from "~/components/layout/centered-section"
 import { IconMatch } from "~/components/libs/icon"
 import { AuthButtons } from "~/components/shared/auth-buttons"
+import { Card } from "~/components/shared/card"
 import { SectionOr } from "~/components/shared/section-or"
 import { ButtonLoading } from "~/components/ui/button-loading"
 import { FormDescription, FormErrors, FormField, FormLabel } from "~/components/ui/form"
@@ -55,7 +56,7 @@ export default function SignUpRoute() {
   return (
     <CenteredSection>
       <div className="site-container">
-        <div className="site-section-md space-y-8">
+        <Card>
           <header className="site-header">
             <h2 className="inline-flex items-center gap-2">
               <IconMatch icon="sign-in" />
@@ -83,7 +84,7 @@ export default function SignUpRoute() {
               className="flex flex-col gap-2"
               {...form.props}
             >
-              <fieldset className="flex flex-col gap-2" disabled={isSubmitting}>
+              <fieldset className="flex flex-col gap-4" disabled={isSubmitting}>
                 {redirectTo ? <input type="hidden" name="redirectTo" value={redirectTo} /> : null}
 
                 <FormField>
@@ -123,6 +124,7 @@ export default function SignUpRoute() {
                 </FormField>
 
                 <ButtonLoading
+                  className="mt-2"
                   type="submit"
                   loadingText="Logging In..."
                   isLoading={isSubmitting}
@@ -133,7 +135,7 @@ export default function SignUpRoute() {
               </fieldset>
             </Form>
           </section>
-        </div>
+        </Card>
       </div>
     </CenteredSection>
   )

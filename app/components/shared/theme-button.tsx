@@ -20,7 +20,13 @@ export function ThemeButton({ ...props }: ThemeButtonProps) {
   }
 
   return (
-    <ButtonIcon variant="ghost" onClick={handleChangeTheme} aria-label="Toggle theme" {...props}>
+    <ButtonIcon
+      variant="outline"
+      className="hover:bg-primary hover:text-background"
+      onClick={handleChangeTheme}
+      aria-label="Toggle theme"
+      {...props}
+    >
       <IconMatch
         icon="sun"
         className="rotate-0 scale-100 transition-transform dark:-rotate-180 dark:scale-0"
