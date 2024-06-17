@@ -40,7 +40,7 @@ export const meta: MetaFunction<typeof loader> = ({ params, data }) => {
     return createMeta({
       title: `${user.fullname} (@${user.username})`,
       description: user.profiles[0]?.bio ?? "",
-      canonicalPath: user.username,
+      canonicalPath: user.username ?? "",
     })
   }
 
@@ -97,7 +97,7 @@ export default function ParamRoute() {
               size="xl"
             />
             {isOwner && (
-              <ButtonLink to="/user/settings" prefetch="intent" variant="outline" size="sm">
+              <ButtonLink to="/settings" prefetch="intent" variant="outline" size="sm">
                 Edit profile
               </ButtonLink>
             )}

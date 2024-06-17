@@ -3,7 +3,9 @@ import React from "react"
 
 import { cn } from "~/utils/cn"
 
-import LogoIcon from "./logo-icon"
+import logoDark from "../../../public/images/logos/logo-dark.png"
+import logoLight from "../../../public/images/logos/logo-light.png"
+import { useTheme } from "./theme"
 
 const logoVariants = cva("flex items-center gap-1 font-semibold", {
   variants: {
@@ -29,12 +31,13 @@ interface LogoProps extends React.HTMLAttributes<HTMLElement>, VariantProps<type
 }
 
 export function Logo({ variant, size, className, text }: LogoProps) {
+  const [theme] = useTheme()
   return (
     <span
       className={cn(logoVariants({ variant, size, className }), "duration-200 hover:scale-110")}
     >
-      <LogoIcon />
-      <span className="text-text inline-flex flex-nowrap font-display">{text}</span>
+      <img src={theme === "dark" ? logoDark : logoLight} alt="logo" className="size-8" />
+      <span className="inline-flex flex-nowrap font-display text-text">{text}</span>
     </span>
   )
 }

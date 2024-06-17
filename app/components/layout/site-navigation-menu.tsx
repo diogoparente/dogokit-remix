@@ -3,7 +3,6 @@ import { useState } from "react"
 
 import { NavItemLink } from "~/components/layout/site-navigation"
 import { IconMatch } from "~/components/libs/icon"
-import { IconLinks } from "~/components/shared/icon-links"
 import { IndicatorUser } from "~/components/shared/indicator-user"
 import { Logo } from "~/components/shared/logo"
 import { Button } from "~/components/ui/button"
@@ -31,7 +30,7 @@ export function SiteNavigationMenu() {
 
       <SheetContent className="flex flex-col justify-between">
         <div className="mb-10 space-y-6">
-          <SheetHeader className="flex items-center gap-2">
+          <SheetHeader className="-mt-2 flex items-center gap-2">
             <NavLinkMenu
               to="/"
               onOpenChange={setOpen}
@@ -70,15 +69,7 @@ export function SiteNavigationMenu() {
               </>
             )}
 
-            {userSession && (
-              <>
-                <ButtonLink to="/new" size="sm">
-                  <IconMatch icon="plus" />
-                  <span>New</span>
-                </ButtonLink>
-                <IndicatorUser size="sm" allowRestrictedRoutes={false} />
-              </>
-            )}
+            {userSession && <IndicatorUser size="sm" allowRestrictedRoutes={false} />}
           </div>
 
           <ul className="flex flex-col items-end gap-4">
@@ -88,10 +79,6 @@ export function SiteNavigationMenu() {
                 <NavItemLinkMenu key={navItem.path} onOpenChange={setOpen} navItem={navItem} />
               ))}
           </ul>
-        </div>
-
-        <div className="max-w-md text-primary-foreground">
-          <IconLinks className="justify-end gap-2" classNameIcon="text-base p-1" />
         </div>
       </SheetContent>
     </Sheet>

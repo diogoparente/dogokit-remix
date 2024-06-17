@@ -27,7 +27,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
         // Pass the modified request to the authService.authenticate function
         return authService.authenticate("form", req, {
-          successRedirect: user.companyId ? "/user/dashboard" : "/owner/dashboard",
+          successRedirect: "/onboarding",
           failureRedirect: "/login", // Ensure you have a failureRedirect in case of authentication failure
         })
       } else {

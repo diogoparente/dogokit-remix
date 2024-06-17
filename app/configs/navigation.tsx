@@ -4,118 +4,35 @@ export type NavItem = {
   text: string
   icon?: string
   end?: boolean
-  shortcut?: string
+  isReleased?: boolean
+  role?: "USER" | "MANAGER" | "ADMIN"
 }
 
 const userNavigationsItems = [
   {
-    path: "/users",
-    text: "Users",
-    icon: "users-four",
+    path: "/home",
+    text: "Home",
+    icon: "house",
   },
   {
-    path: "/user/dashboard",
-    text: "Dashboard",
-    icon: "binoculars",
-    shortcut: "⌘K+D",
-  },
-  {
-    path: "/user/settings",
+    path: "/settings",
     text: "Settings",
     icon: "gear",
-    shortcut: "⌘K+S",
   },
   {
-    path: "/user/account",
+    path: "/account",
     text: "Account",
     icon: "user",
   },
 ]
 
-const adminNavigationItems = [
-  {
-    path: "/admin",
-    text: "Admin",
-    icon: "crown-simple",
-  },
-  {
-    path: "/admin/dashboard",
-    text: "Admin Dashboard",
-    icon: "crown-simple",
-  },
-  {
-    path: "/admin/users",
-    text: "Users",
-    icon: "users-four",
-  },
-  {
-    path: "/admin/settings",
-    text: "Settings",
-    icon: "gear",
-  },
-  {
-    path: "/admin/notifications",
-    text: "Notifications",
-    icon: "notification",
-  },
-]
-
-const ownerNavigationItems = [
-  {
-    path: "/owner/dashboard",
-    text: "Owner Dashboard",
-    icon: "crown",
-  },
-  {
-    path: "/owner/users",
-    text: "Users",
-    icon: "users-four",
-  },
-]
-
 export const configNavigationItems: NavItem[] = [
-  {
-    path: "/",
-    text: "Home",
-  },
-  {
-    path: "/about",
-    text: "About",
-  },
-  {
-    path: "/search",
-    text: "Search",
-    icon: "magnifying-glass",
-  },
-  {
-    path: "/posts",
-    text: "Posts",
-    icon: "scroll",
-  },
   ...userNavigationsItems,
-  ...adminNavigationItems,
-  ...ownerNavigationItems,
-  {
-    path: "/help",
-    text: "Help",
-    icon: "question",
-    shortcut: "⌘K+H",
-  },
-  {
-    path: "/help/shortcuts",
-    text: "Command Palette",
-    icon: "keyboard",
-    shortcut: "⌘K",
-  },
+
   {
     path: "/user",
     text: "User",
     icon: "user",
-  },
-  {
-    path: "/owner",
-    text: "Owner",
-    icon: "crown",
   },
   {
     path: "/signup",
@@ -133,5 +50,34 @@ export const configNavigationItems: NavItem[] = [
     text: "Log Out",
     icon: "sign-out",
     isAlwaysVisible: true,
+  },
+]
+
+export const sideNavNavigationItems: NavItem[] = [
+  userNavigationsItems[0]!,
+  {
+    path: "/company",
+    text: "Company",
+    icon: "tree-structure",
+    isReleased: true,
+  },
+  {
+    path: "/time-off",
+    text: "Time off",
+    icon: "calendar-plus",
+  },
+  {
+    path: "/job-listings",
+    text: "Job listings",
+    icon: "add-user",
+    role: "MANAGER",
+    isReleased: true,
+  },
+  {
+    path: "/company/settings",
+    text: "Company settings",
+    icon: "gear",
+    role: "ADMIN",
+    isReleased: true,
   },
 ]

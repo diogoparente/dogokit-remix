@@ -41,12 +41,14 @@ import {
   Books,
   BoundingBox,
   CalendarBlank,
+  CalendarPlus,
   CaretDoubleLeft,
   CaretDoubleRight,
   CaretDown,
   CaretLeft,
   CaretRight,
   CaretUpDown,
+  ChartPie,
   Check,
   Circle,
   CreditCard,
@@ -68,6 +70,7 @@ import {
   List,
   MagnifyingGlass,
   Moon,
+  NewspaperClipping,
   Notebook,
   NotePencil,
   Notification,
@@ -83,7 +86,9 @@ import {
   Sun,
   Tag,
   Trash,
+  TreeStructure,
   User,
+  UserCirclePlus,
   UserPlus,
   UsersFour,
   X as XIcon,
@@ -134,6 +139,7 @@ export const IconMatch = ({ icon, ...props }: { icon: string; className?: string
     .with("book-open", () => <BookOpen {...props} />)
     .with("bounding-box", () => <BoundingBox {...props} />)
     .with("button-pointer", () => <Iconify icon="mdi:button-pointer" {...props} />)
+    .with("calendar-plus", () => <CalendarPlus {...props} />)
     .with("calendar-blank", () => <CalendarBlank {...props} />)
     .with("calendar-cursor", () => <Iconify icon="mdi:calendar-cursor" {...props} />)
     .with("caret-double-left", () => <CaretDoubleLeft {...props} />)
@@ -143,6 +149,7 @@ export const IconMatch = ({ icon, ...props }: { icon: string; className?: string
     .with("caret-right", () => <CaretRight {...props} />)
     .with("caret-up-down", () => <CaretUpDown {...props} />)
     .with("check", () => <Check {...props} />)
+    .with("chart", () => <ChartPie {...props} />)
     .with("circle", () => <Circle {...props} />)
     .with("credit-card", () => <CreditCard {...props} />)
     .with("crown-simple", () => <CrownSimple {...props} />)
@@ -159,6 +166,7 @@ export const IconMatch = ({ icon, ...props }: { icon: string; className?: string
     .with("email", () => <RiMailCheckLine {...props} />)
     .with("eye-slash", () => <EyeSlash {...props} />)
     .with("eye", () => <Eye {...props} />)
+    .with("add-user", () => <UserCirclePlus {...props} />)
     .with("facebook", () => <SiFacebook {...props} />)
     .with("floppy-disk", () => <FloppyDisk {...props} />)
     .with("folder-simple", () => <FolderSimple {...props} />)
@@ -171,6 +179,7 @@ export const IconMatch = ({ icon, ...props }: { icon: string; className?: string
     .with("image", () => <Image {...props} />)
     .with("info", () => <Info {...props} />)
     .with("instagram", () => <SiInstagram {...props} />)
+    .with("tree-structure", () => <TreeStructure {...props} style={{ rotate: "90deg" }} />)
     .with("keyboard", () => <Keyboard {...props} />)
     .with("laptop", () => <Laptop {...props} />)
     .with("lightbulb", () => <Lightbulb {...props} />)
@@ -181,6 +190,7 @@ export const IconMatch = ({ icon, ...props }: { icon: string; className?: string
     .with("moon", () => <Moon {...props} />)
     .with("note-pencil", () => <NotePencil {...props} />)
     .with("notification", () => <Notification {...props} />)
+    .with("house", () => <NewspaperClipping {...props} />)
     .with("plus", () => <Plus {...props} />)
     .with("private", () => <Book weight="fill" {...props} />)
     .with("published", () => <BookOpenText weight="fill" {...props} />)

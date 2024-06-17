@@ -10,6 +10,7 @@ type RootLoaderData = {
   userSession: UserSession | undefined
   userData: UserData | undefined
   token: string | undefined
+  role: string | undefined
 }
 
 export function useMatchesData(routeId: string) {
@@ -32,5 +33,6 @@ export function useRootLoaderData() {
     userSession: data?.userSession,
     userData: data?.userData,
     token: data?.token,
+    role: data?.role,
   }
 }

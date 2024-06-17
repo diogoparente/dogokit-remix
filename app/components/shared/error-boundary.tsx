@@ -8,7 +8,6 @@ import {
 import { captureRemixErrorBoundaryError } from "@sentry/remix"
 
 import { IconMatch } from "~/components/libs/icon"
-import { Anchor } from "~/components/ui/anchor"
 import { ButtonLink } from "~/components/ui/button-link"
 
 type StatusHandler = (info: {
@@ -60,26 +59,31 @@ export function getErrorMessage(error: unknown) {
   return "Unknown Error"
 }
 
-function GeneralErrorMessage({ error }: { error: ErrorResponse }) {
+export function GenericErrorMessage({ error }: { error?: ErrorResponse }) {
   const location = useLocation()
 
   return (
-    <>
-      <section className="prose-config site-section">
-        <h1>Sorry, something went wrong</h1>
-        <p>The requested page either doesn’t exist or you don’t have access to it.</p>
-        <ul>
+    <section className="prose-config site-section">
+      <h1>Sorry, something went wrong</h1>
+      <p>The requested page either doesn’t exist or you don’t have access to it.</p>
+      <ul>
+        <li>
+          Something wrong on <code>{location.pathname}</code>
+        </li>
+        {error?.status && (
           <li>
-            Something wrong on <code>{location.pathname}</code>
+            {error.status} {error.data}
           </li>
-          {error.status && (
-            <li>
-              {error.status} {error.data}
-            </li>
-          )}
-        </ul>
-      </section>
+        )}
+      </ul>
+    </section>
+  )
+}
 
+function GeneralErrorMessage({ error }: { error?: ErrorResponse }) {
+  return (
+    <>
+      <GenericErrorMessage error={error} />
       <ErrorHelpInformation />
     </>
   )
@@ -120,11 +124,6 @@ export function ErrorHelpInformation({ extraButtonLinks }: { extraButtonLinks?: 
           You may have typed the address (URL) incorrectly. Check to make sure you’ve got the exact
           right spelling, capitalization, etc.
         </p>
-
-        <small>
-          This error information is inspired by{" "}
-          <Anchor href="https://basecamp.com">Basecamp</Anchor>
-        </small>
       </section>
     </>
   )

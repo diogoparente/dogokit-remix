@@ -16,15 +16,15 @@ export const emailRegister = async ({ originUrl, email }: { originUrl: string; e
 
   try {
     await client.sendAsync({
-      subject: "Welcome! Here's Your Magic Link",
+      subject: "Welcome! Here's your onboarding link 🚀",
       text: `
       You're just one click away from activating your account.
-      Click here to activate it: ${magicLink}`,
+      Click here to start your onboarding process: ${magicLink}`,
       from: process.env.SMTP_EMAIL! ?? "email_not_provided",
       to: email,
     })
 
-    return json({ message: "Magic link sent!", status: 200 })
+    return json({ message: `Magic link sent to ${email}! 🚀`, status: 200 })
   } catch {
     return json({ message: "Something went wrong!", status: 500 })
   }

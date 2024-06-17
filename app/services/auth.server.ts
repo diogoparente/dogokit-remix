@@ -1,6 +1,5 @@
 import { type Prisma } from "@prisma/client"
 import { createCookieSessionStorage } from "@remix-run/node"
-import jwt from "jsonwebtoken"
 import { Authenticator } from "remix-auth"
 
 import { type modelUser } from "~/models/user.server"

@@ -5,7 +5,7 @@ import * as React from "react"
 import { cn } from "~/utils/cn"
 
 const buttonVariants = cva(
-  "inline-flex select-none items-center justify-center rounded-md text-sm font-semibold ring-offset-background hover:scale-105 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex select-none items-center justify-center rounded-md text-sm font-semibold ring-offset-background duration-700 hover:scale-105 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -13,7 +13,7 @@ const buttonVariants = cva(
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "border bg-background hover:border-primary",
         secondary: "bg-secondary text-secondary-foreground",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-secondary hover:text-secondary-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -43,17 +43,33 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  isLoading?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, isIcon, isIconText, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      isLoading,
+      variant,
+      size,
+      isIcon,
+      isIconText,
+      asChild = false,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, isIcon, isIconText, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        {isLoading ? "Loading" : children}
+      </Comp>
     )
   },
 )

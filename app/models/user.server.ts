@@ -5,6 +5,7 @@ import { hashPassword } from "~/utils/encryption.server"
 import { getPlaceholderAvatarUrl } from "~/utils/placeholder"
 import { createNanoIdShort } from "~/utils/string"
 
+import { modelCompany } from "./company.server"
 import { generateTempPassword } from "./helpers/generate-password"
 
 export const modelUser = {
@@ -51,6 +52,7 @@ export const modelUser = {
         companyId: true,
         company: true,
         activated: true,
+        onboarded: true,
         email: true,
         roles: { select: { symbol: true, name: true } },
         images: { select: { url: true }, orderBy: { updatedAt: "desc" } },
@@ -79,6 +81,8 @@ export const modelUser = {
       select: {
         id: true,
         images: { select: { url: true }, orderBy: { updatedAt: "desc" } },
+        companyId: true,
+        invited: true,
       },
     })
   },
@@ -103,42 +107,62 @@ export const modelUser = {
     return db.user.findUnique({ where: { email } })
   },
 
-  async signup({
+  async create({
     email,
     fullname = "",
     username = "",
     password,
+    invited = false,
   }: {
     email: string
     fullname?: string
     username?: string
-    password?: string // unencrypted password at first
+    password?: string
+    invited?: boolean
     inviteBy?: string
-    inviteCode?: string
+    inviteCode?: boolean
   }) {
-    // The logic is in Conform Zod validation
-    return db.user.create({
-      data: {
-        fullname: fullname.trim(),
-        username: `${email.split("@")[0]!.trim()}_${createNanoIdShort()}`,
-        email: email.trim(),
-        roles: { connect: { symbol: "ADMIN" } },
-        password: {
-          create: {
-            hash: password ? await hashPassword(password) : generateTempPassword(),
+    let user
+
+    try {
+      const company = await modelCompany.create({})
+
+      // The logic is in Conform Zod validation
+      user = await db.user.upsert({
+        where: { email },
+        create: {
+          companyId: company.id,
+          activated: false,
+          onboarded: false,
+          fullname: fullname.trim(),
+          username: `${email.split("@")[0]!.trim()}_${createNanoIdShort()}`,
+          email: email.trim(),
+          roles: { connect: { symbol: invited ? "NORMAL" : "ADMIN" } },
+          password: {
+            create: {
+              hash: password ? await hashPassword(password) : generateTempPassword(),
+            },
+          },
+          images: { create: { url: getPlaceholderAvatarUrl(username as string) } },
+          profiles: {
+            create: {
+              modeName: `Default ${fullname}`,
+              headline: `The headline of ${fullname}`,
+              bio: `The bio of ${fullname} for longer description.`,
+            },
           },
         },
-        images: { create: { url: getPlaceholderAvatarUrl(username as string) } },
-        activated: false,
-        profiles: {
-          create: {
-            modeName: `Default ${fullname}`,
-            headline: `The headline of ${fullname}`,
-            bio: `The bio of ${fullname} for longer description.`,
-          },
+        update: {
+          activated: true,
+          onboarded: true,
         },
-      },
-    })
+      })
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+
+    return user
   },
 
   async continueWithService({
@@ -148,20 +172,20 @@ export const modelUser = {
     providerName,
     providerId,
     imageUrl,
-    // @ts-ignore
   }: Pick<User, "email" | "fullname" | "username"> &
     Pick<Connection, "providerName" | "providerId"> & { imageUrl: string }) {
     const existingUsername = await modelUser.getByUsername({ username })
     const existingUser = await modelUser.getByEmail({ email })
-
+    const company = await modelCompany.create({})
     try {
       return db.user.upsert({
         where: { email },
         create: {
-          activated: false,
+          companyId: company.id,
+          activated: true,
           email,
           fullname,
-          roles: { connect: { symbol: "NORMAL" } },
+          roles: { connect: { symbol: "ADMIN" } },
           username: existingUsername ? `${username}_${createNanoIdShort()}` : (username as string),
           images: {
             create: { url: imageUrl || getPlaceholderAvatarUrl(username as string) },
@@ -201,7 +225,6 @@ export const modelUser = {
     return db.user.delete({ where: { email } })
   },
 
-  // @ts-ignore
   updateUsername({ id, username }: Pick<User, "id" | "username">) {
     return db.user.update({
       where: { id },
@@ -213,6 +236,25 @@ export const modelUser = {
     return db.user.update({
       where: { email },
       data: { activated: true },
+    })
+  },
+
+  onboard({ email }: Pick<User, "email">) {
+    return db.user.update({
+      where: { email },
+      data: {
+        onboarded: true,
+      },
+    })
+  },
+
+  setupFirstCompanyUser({ email, companyId }: Pick<User, "email"> & { companyId: string }) {
+    return db.user.update({
+      where: { email },
+      data: {
+        companyId,
+        onboarded: true,
+      },
     })
   },
 

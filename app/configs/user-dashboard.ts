@@ -1,3 +1,3 @@
 export const configUserDashboard = {
-  navItems: [{ to: "/user/posts", text: "Posts", isMetric: true }],
+  navItems: [{ to: "/posts", text: "Posts", isMetric: true }],
 }

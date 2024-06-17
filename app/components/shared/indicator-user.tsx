@@ -1,4 +1,4 @@
-import { Link, NavLink } from "@remix-run/react"
+import { NavLink } from "@remix-run/react"
 import { type VariantProps } from "class-variance-authority"
 
 import { IconMatch } from "~/components/libs/icon"
@@ -8,13 +8,9 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 import { configNavigationItems, type NavItem } from "~/configs/navigation"
-import { useAppMode } from "~/hooks/use-app-mode"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
 
 interface IndicatorUserProps
@@ -26,7 +22,6 @@ interface IndicatorUserProps
 
 export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: IndicatorUserProps) {
   const { userData } = useRootLoaderData()
-  const { isModeDevelopment } = useAppMode()
 
   if (!userData) return null
 
@@ -36,9 +31,8 @@ export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: In
   const profileNavItem = (username: string) => [
     {
       text: "Profile",
-      path: `/${username}`,
+      path: `/user/${username}`,
       icon: "user",
-      shortcut: "⌘K+P",
     },
   ]
 
@@ -46,9 +40,9 @@ export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: In
    * Configure the available paths in app/configs/navigation.ts
    */
 
-  const userNavItems = ["/user/dashboard", "/user/posts", "/user/settings", "/user/notifications"]
+  const personalItems = ["/home"]
 
-  const devNavItems = ["/admin", "/blank"]
+  const userNavItems = ["/settings", "/notifications"]
 
   const authNavItems = ["/logout"]
 
@@ -59,34 +53,18 @@ export function IndicatorUser({ align = "end", allowRestrictedRoutes, size }: In
       </DropdownMenuTrigger>
 
       {allowRestrictedRoutes ? (
-        <DropdownMenuContent align={align} className="w-56 overflow-scroll">
-          <DropdownMenuLabel>
-            <p className="text-base font-semibold">{userData.fullname}</p>
-            <p className="text-sm font-semibold text-primary-foreground">
-              <Link to={`/${userData.username}`} prefetch="intent">
-                @{userData.username}
-              </Link>
-            </p>
-          </DropdownMenuLabel>
-
-          <DropdownMenuSeparator />
+        <DropdownMenuContent align={align} className="w-56">
+          <DropdownMenuGroupItems
+            items={[...configNavigationItems.filter(item => personalItems.includes(item.path))]}
+          />
           <DropdownMenuGroupItems
             items={[
               ...profileNavItem(userData!.username!),
               ...configNavigationItems.filter(item => userNavItems.includes(item.path)),
             ]}
           />
-
-          {isModeDevelopment && <DropdownMenuSeparator />}
-          {isModeDevelopment && (
-            <DropdownMenuGroupItems
-              items={configNavigationItems.filter(item => devNavItems.includes(item.path))}
-            />
-          )}
-
-          <DropdownMenuSeparator />
           <DropdownMenuGroupItems
-            items={configNavigationItems.filter(item => authNavItems.includes(item.path))}
+            items={[...configNavigationItems.filter(item => authNavItems.includes(item.path))]}
           />
         </DropdownMenuContent>
       ) : (
@@ -111,9 +89,8 @@ function DropdownMenuGroupItems({ items }: { items: NavItem[] }) {
         return (
           <DropdownMenuItem key={item.path} isDestructive={isLogout} asChild>
             <NavLink to={item.path} prefetch="intent">
-              <IconMatch icon={item.icon} className="me-2" />
+              {item?.icon ? <IconMatch icon={item?.icon} className="me-2" /> : null}
               <span>{item.text}</span>
-              {item.shortcut && <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>}
             </NavLink>
           </DropdownMenuItem>
         )

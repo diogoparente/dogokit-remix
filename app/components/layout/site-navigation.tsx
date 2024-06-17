@@ -11,6 +11,8 @@ import { configSite } from "~/configs/site"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
 import { cn } from "~/utils/cn"
 
+import { LoggedUserControls, NotLoggedUserControls } from "./app-navigation"
+
 export function SiteNavigation() {
   return (
     <>
@@ -28,11 +30,11 @@ function SiteNavigationSmall() {
   return (
     <nav
       className={cn(
-        "sticky top-0 z-20 flex items-center justify-between gap-2 bg-background p-2 transition-colors lg:hidden",
+        "sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-b-border bg-background p-2 transition-colors lg:hidden",
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <Link to="/" prefetch="intent" className=" block rounded-xs transition hover:opacity-75">
+        <Link to={userSession ? "/home" : "/"} prefetch="intent" className=" block transition">
           <Logo text={configSite.name} />
         </Link>
       </div>
@@ -76,12 +78,12 @@ function SiteNavigationLarge() {
   return (
     <nav
       className={cn(
-        "sticky top-0 z-40 hidden items-center justify-between gap-2 bg-background p-4 transition-colors lg:flex",
+        "pointer-events-auto sticky top-0 z-50 hidden items-center justify-between gap-2 border-b border-b-border bg-background p-2 lg:flex",
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <Link to="/" prefetch="intent" className=" block transition">
-          <Logo text="stealth" />
+        <Link to={userSession ? "/home" : "/"} prefetch="intent" className=" block transition">
+          <Logo text={configSite.name} />
         </Link>
       </div>
 
@@ -95,33 +97,9 @@ function SiteNavigationLarge() {
         </ul>
 
         <div className="flex items-center gap-4">
-          {!userSession && (
-            <>
-              <ButtonLink to="/login" prefetch="intent" variant="secondary" size="sm">
-                <IconMatch icon="sign-in" />
-                <span>Log In</span>
-              </ButtonLink>
-              <ButtonLink to="/signup" prefetch="intent" size="sm">
-                <IconMatch icon="user-plus" />
-                <span>Sign Up</span>
-              </ButtonLink>
-            </>
-          )}
-
-          {userSession &&
-            (allowRestrictedRoutes ? (
-              <>
-                <ButtonLink to="/new" prefetch="intent" size="sm">
-                  <IconMatch icon="plus" />
-                  <span>New</span>
-                </ButtonLink>
-                <IndicatorUser size="sm" allowRestrictedRoutes={allowRestrictedRoutes} />
-              </>
-            ) : (
-              <IndicatorUser size="sm" allowRestrictedRoutes={allowRestrictedRoutes} />
-            ))}
+          <NotLoggedUserControls userSession={userSession} />
+          <LoggedUserControls userSession={userSession} />
         </div>
-        <ThemeButton />
       </div>
     </nav>
   )
@@ -139,8 +117,8 @@ export function NavItemLink({
         onClick={onClick}
         className={({ isActive }) =>
           cn(
-            " inline-flex select-none items-center gap-2 rounded-md px-2 py-1 font-semibold transition hover:scale-110 hover:bg-opacity-80",
-            isActive && "text-primary",
+            "inline-flex select-none items-center gap-2 rounded-md px-2 py-1 font-semibold transition hover:scale-110 hover:bg-opacity-80",
+            isActive && "text-secondary",
           )
         }
       >

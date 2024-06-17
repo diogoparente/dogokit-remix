@@ -9,13 +9,6 @@ export const dataPages = [
     statusSymbol: "DRAFT",
   },
   {
-    slug: "about",
-    title: "About",
-    description: "About the project.",
-    content: pageAboutContent,
-    statusSymbol: "PUBLISHED",
-  },
-  {
     slug: "terms",
     title: "Terms and Conditions",
     description: "Some ground rules of using and having this app.",

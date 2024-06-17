@@ -28,7 +28,8 @@ export const modelAdminPage = {
     description,
     content,
     statusSymbol,
-  }: Pick<Page, "userId" | "slug" | "title" | "description" | "content"> & {
+    companyId,
+  }: Pick<Page, "userId" | "slug" | "title" | "description" | "content" | "companyId"> & {
     statusSymbol: PageStatusSymbol
   }) {
     const status = await db.pageStatus.findUnique({
@@ -39,6 +40,7 @@ export const modelAdminPage = {
     return db.page.create({
       data: {
         userId,
+        companyId,
         slug,
         title,
         description,

@@ -19,6 +19,6 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
   await timer.delay()
   return authService.authenticate(provider, request, {
-    successRedirect: "/user/dashboard",
+    successRedirect: "/home",
   })
 }

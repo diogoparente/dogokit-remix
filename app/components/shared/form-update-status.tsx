@@ -3,7 +3,6 @@ import { useFetcher } from "@remix-run/react"
 import { useState } from "react"
 
 import { BadgePostStatus } from "~/components/shared/badge-post-status"
-import { IconPostStatus } from "~/components/shared/icon-post-status"
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -29,7 +28,7 @@ import { cn } from "~/utils/cn"
 
 export function FormUpdateStatus({
   itemId = "itemId",
-  action = "/user/items/update",
+  action = "/items/update",
   intentValue = "update-item-status",
   dialogTitle = "Update Status",
   dialogDescription = "Update the status of this item",
@@ -99,7 +98,6 @@ export function FormUpdateStatus({
                     return (
                       <SelectItem key={status.id} value={status.symbol}>
                         <p className="inline-flex items-center gap-2">
-                          <IconPostStatus status={status} />
                           <span>{status.name}</span>
                         </p>
                       </SelectItem>
@@ -116,7 +114,6 @@ export function FormUpdateStatus({
                 return (
                   <li key={status.id}>
                     <p className="text-xs text-primary-foreground">
-                      <IconPostStatus status={status} />
                       <span className="font-semibold"> {status.name}:</span>
                       <span> {status.description}</span>
                     </p>

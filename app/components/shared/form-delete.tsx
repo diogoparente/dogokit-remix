@@ -28,7 +28,7 @@ export function FormDelete({
   className,
 }: {
   dialogTrigger?: React.ReactNode
-  action: string // Example: /user/posts/delete
+  action: string // Example: /posts/delete
   intentValue: string // Example: delete-post-by-id
   itemText: string // Example: post name
   name?: string // Optional because can be with/without input name=id

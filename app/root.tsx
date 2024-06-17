@@ -7,6 +7,9 @@ import {
 } from "@remix-run/node"
 import { Outlet, useLoaderData, useRouteError } from "@remix-run/react"
 import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { useState } from "react"
+import { useDehydratedState } from "use-dehydrated-state"
 
 import { GeneralErrorBoundary } from "~/components/shared/error-boundary"
 import { ThemeProvider, type Theme } from "~/components/shared/theme"
@@ -47,7 +50,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const userData = await modelUser.getForSession({ id: userSession.id })
-
+  const role = userData?.roles[0]?.symbol
   const email = userData?.email
   const token = email ? await generateToken({ email: userData!.email }) : ""
 
@@ -59,18 +62,22 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     userSession,
     userData,
     token,
+    role,
   })
 }
 
 function RootRoute() {
   const data = useLoaderData<typeof loader>()
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
-    <ThemeProvider specifiedTheme={data.theme}>
-      <Document dataTheme={data.theme}>
-        <Outlet />
-      </Document>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider specifiedTheme={data.theme}>
+        <Document dataTheme={data.theme}>
+          <Outlet />
+        </Document>
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }
 

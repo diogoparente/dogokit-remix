@@ -1,10 +1,7 @@
 export const configSitemapGroups: ConfigSitemapGroup[] = [
   {
     title: "Pages",
-    items: [
-      { name: "Landing", to: "/" },
-      { name: "About", to: "/about" },
-    ],
+    items: [{ name: "Landing", to: "/" }],
   },
   {
     title: "Account",
@@ -12,7 +9,7 @@ export const configSitemapGroups: ConfigSitemapGroup[] = [
       { name: "Sign Up", to: "/signup" },
       { name: "Log In", to: "/login" },
       { name: "Log Out", to: "/logout" },
-      { name: "Dashboard", to: "/user/dashboard" },
+      { name: "Home", to: "/home" },
     ],
   },
 

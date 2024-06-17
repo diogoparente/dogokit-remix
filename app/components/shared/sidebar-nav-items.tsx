@@ -23,7 +23,7 @@ export function SidebarNavItems({ items }: { items: NavItem[] }) {
                 )
               }
             >
-              <IconMatch icon={item.icon} className="shrink-0" />
+              <IconMatch icon={item.icon!} className="shrink-0" />
               <span className="hidden whitespace-nowrap sm:inline">{item.text}</span>
             </NavLink>
           </li>

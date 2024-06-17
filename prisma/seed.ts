@@ -1,3 +1,5 @@
+import { execSync } from "child_process"
+
 import { type Prisma } from "@prisma/client"
 
 import { db } from "~/libs/db.server"
@@ -13,10 +15,15 @@ import { dataRoles } from "./data/roles"
 /**
  * EDITME: Enable or disable seed items by commenting them
  */
-const enabledSeedItems = ["permissions", "roles", "users", "pageStatuses", "pages"]
+const enabledSeedItems = ["permissions", "roles", "users", "pageStatuses", "pages", "companies"]
+const companyId = dataCredentialUsers[0]?.companyId
 
 async function main() {
   logEnv()
+
+  // Ensure the schema is deployed
+  console.info("\n🔄 Deploying schema")
+  execSync("npx prisma migrate deploy", { stdio: "inherit" })
 
   const seeds: { [key: string]: () => Promise<any> } = {
     permissions: seedPermissions,
@@ -24,6 +31,7 @@ async function main() {
     users: seedUsers,
     pageStatuses: seedPageStatuses,
     pages: seedPages,
+    companies: seedCompanies,
   }
 
   for (const seedName of enabledSeedItems) {
@@ -61,7 +69,7 @@ async function seedPermissions() {
 async function seedRoles() {
   console.info("\n👑 Seed roles")
   console.info("👑 Count roles", await db.role.count())
-  // console.info("👑 Deleted roles", await db.role.deleteMany())
+  // console.info('👑 Deleted roles', await db.role.deleteMany());
   console.time("👑 Upserted roles")
 
   for (const roleRaw of dataRoles) {
@@ -91,7 +99,7 @@ async function seedRoles() {
 async function seedUsers() {
   console.info("\n👤 Seed users")
   console.info("👤 Count users", await db.user.count())
-  // console.info("👤 Deleted users", await db.user.deleteMany())
+  // console.info('👤 Deleted users', await db.user.deleteMany());
 
   if (!Array.isArray(dataCredentialUsers)) {
     console.error(`🔴 [ERROR] Please create prisma/credentials/users.ts file`)
@@ -141,10 +149,40 @@ async function seedUsers() {
   }
 }
 
+async function seedCompanies() {
+  console.info("\n🏢 Seed companies")
+  // Retrieve users with the specific companyId
+  const usersWithoutCompany = await db.user.findMany({
+    where: { companyId },
+  })
+
+  for (const user of usersWithoutCompany) {
+    // Create a new company for each user
+    const companyName = `${user.username}'s Company`
+    const companyLocation = "Default Location" // You can change this to a more appropriate location
+
+    const newCompany = await db.company.create({
+      data: {
+        id: companyId,
+        name: companyName,
+        location: companyLocation,
+      },
+    })
+
+    // Update user with the newly created company ID
+    await db.user.update({
+      where: { id: user.id },
+      data: { companyId: newCompany.id },
+    })
+
+    console.info(`🏢 Created company for user ${user.email} / @${user.username}`)
+  }
+}
+
 async function seedPageStatuses() {
   console.info("\n📃 Seed page statuses")
   console.info("📃 Count page statuses", await db.pageStatus.count())
-  // console.info("📃 Deleted page statuses", await db.pageStatus.deleteMany())
+  // console.info('📃 Deleted page statuses', await db.pageStatus.deleteMany());
   console.time("📃 Upserted page statuses")
 
   for (const statusRaw of dataPageStatuses) {
@@ -176,6 +214,7 @@ async function seedPages() {
 
     const pageData = {
       ...pageSanitized,
+      companyId: companyId!,
       statusId: status.id,
     }
 

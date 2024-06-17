@@ -84,7 +84,7 @@ export const schemaUserProfileHeadline = z.object({ id, headline })
 export const schemaUserProfileBio = z.object({ id, bio })
 export const schemaUserProfileLinks = z.object({ id, links })
 
-export const schemaUserPasswordReset = z
+export const schemaUserProfileSetup = z
   .object({
     fullname,
     dateOfBirth,

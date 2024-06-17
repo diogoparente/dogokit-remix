@@ -5,7 +5,6 @@ import { Form, useActionData, useNavigation, useSearchParams } from "@remix-run/
 import { z } from "zod"
 
 import { CenteredSection } from "~/components/layout/centered-section"
-import { IconMatch } from "~/components/libs/icon"
 import { AuthButtons } from "~/components/shared/auth-buttons"
 import { Card } from "~/components/shared/card"
 import { SectionOr } from "~/components/shared/section-or"
@@ -29,9 +28,27 @@ export const meta: MetaFunction = () =>
 
 export const loader = ({ request }: ActionFunctionArgs) => {
   return authService.isAuthenticated(request, {
-    successRedirect: "/user/dashboard",
+    successRedirect: "/home",
   })
 }
+const SuccessMessage = () => (
+  <CenteredSection>
+    <div className="site-container">
+      <div className="site-section space-y-8">
+        <Card className="flex flex-col justify-around" icon="email" label="You are in! 🚀">
+          <div className="flex flex-col gap-2">
+            <p className="text-base font-medium text-secondary">
+              Check your inbox and activate your account with the magic link we sent you
+            </p>
+            <p className="text-sm font-extralight ">
+              If you can't find it in your inbox, please check your spam box
+            </p>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </CenteredSection>
+)
 
 export default function SignUpRoute() {
   const actionData = useActionData<typeof action>()
@@ -56,37 +73,14 @@ export default function SignUpRoute() {
   })
 
   if (actionData?.status === "success") {
-    return (
-      <CenteredSection>
-        <div className="site-container">
-          <div className="site-section space-y-8">
-            <Card>
-              <header className="site-header">
-                <h2 className="inline-flex items-center gap-2 pb-2">
-                  <IconMatch icon="email" />
-                  <span>You are in! 🚀</span>
-                </h2>
-                <p>Check your inbox and activate your account with the magic link we sent you</p>
-                <p className="text-sm font-extralight">
-                  If you can't find it in your inbox, please check your spam box
-                </p>
-              </header>
-            </Card>
-          </div>
-        </div>
-      </CenteredSection>
-    )
+    return <SuccessMessage />
   }
 
   return (
     <CenteredSection>
       <div className="site-container">
-        <Card>
+        <Card label="Create a new account" icon="user-plus">
           <header className="site-header">
-            <h2 className="inline-flex items-center gap-2">
-              <IconMatch icon="user-plus" />
-              <span>Create a new account</span>
-            </h2>
             <p>
               Already have an account?{" "}
               <LinkText alt="Log in" to="/login">
@@ -156,7 +150,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     schema: schemaUserSignUp.superRefine(async (data, ctx) => {
       const existingEmail = await db.user.findUnique({
         where: { email: data.email },
-        select: { id: true },
+        select: { activated: true },
       })
       if (existingEmail) {
         ctx.addIssue({
@@ -174,8 +168,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ status: "error", submission }, { status: 400 })
   }
   try {
-    const newUser = await modelUser.signup({
+    const newUser = await modelUser.create({
       ...submission.value,
+      invited: false,
     })
 
     if (!newUser) {

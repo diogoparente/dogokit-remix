@@ -14,13 +14,12 @@ import {
 } from "~/components/ui/alert-dialog"
 import { ButtonLoading } from "~/components/ui/button-loading"
 import { type modelPage } from "~/models/page.server"
-import { type modelPost } from "~/models/post.server"
 import { type JsonifyPrisma } from "~/types/jsonify"
 
 export function FormUpdatePublish({
   itemName = "Item",
   itemId = "itemId",
-  action = "/user/items/update",
+  action = "/items/update",
   intentValue = "update-item-status",
   item,
 }: {
@@ -28,9 +27,7 @@ export function FormUpdatePublish({
   itemId: string
   action: string
   intentValue: string
-  item:
-    | JsonifyPrisma<typeof modelPage.getWithStatus>
-    | JsonifyPrisma<typeof modelPost.getWithStatus>
+  item: JsonifyPrisma<typeof modelPage.getWithStatus>
 }) {
   const fetcher = useFetcher()
   const isLoading = fetcher.state !== "submitting" && fetcher.formMethod === "POST"

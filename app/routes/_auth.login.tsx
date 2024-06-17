@@ -5,7 +5,6 @@ import { Form, useActionData, useNavigation, useSearchParams } from "@remix-run/
 import { z } from "zod"
 
 import { CenteredSection } from "~/components/layout/centered-section"
-import { IconMatch } from "~/components/libs/icon"
 import { AuthButtons } from "~/components/shared/auth-buttons"
 import { Card } from "~/components/shared/card"
 import { SectionOr } from "~/components/shared/section-or"
@@ -29,11 +28,11 @@ export const meta: MetaFunction = () =>
 
 export const loader = ({ request }: ActionFunctionArgs) => {
   return authService.isAuthenticated(request, {
-    successRedirect: "/user/dashboard",
+    successRedirect: "/home",
   })
 }
 
-export default function SignUpRoute() {
+export default function LoginRoute() {
   const actionData = useActionData<typeof action>()
 
   const navigation = useNavigation()
@@ -56,12 +55,8 @@ export default function SignUpRoute() {
   return (
     <CenteredSection>
       <div className="site-container">
-        <Card>
+        <Card icon="sign-in" label="Log in to continue">
           <header className="site-header">
-            <h2 className="inline-flex items-center gap-2">
-              <IconMatch icon="sign-in" />
-              <span>Log in to continue</span>
-            </h2>
             <p>
               Don't have an account?{" "}
               <LinkText alt="sign up" to="/signup" className="transition">
@@ -70,9 +65,7 @@ export default function SignUpRoute() {
             </p>
           </header>
 
-          <section className="space-y-2">
-            <AuthButtons />
-          </section>
+          <AuthButtons />
 
           <SectionOr />
 
@@ -86,7 +79,6 @@ export default function SignUpRoute() {
             >
               <fieldset className="flex flex-col gap-4" disabled={isSubmitting}>
                 {redirectTo ? <input type="hidden" name="redirectTo" value={redirectTo} /> : null}
-
                 <FormField>
                   <FormLabel htmlFor={email.id}>Email</FormLabel>
                   <Input
@@ -189,6 +181,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   return authService.authenticate("form", request, {
-    successRedirect: "/user/dashboard",
+    successRedirect: "/home",
   })
 }

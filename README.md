@@ -386,7 +386,7 @@ shadcn UI CSS variables with Tailwind CSS colors.
 For example:
 
 ```sh
-pnpx shadcn-custom-theme primary=indigo secondary=blue accent=violet gray=neutral
+pnpx shadcn-custom-theme primary=indigo secondary=blue secondary=violet gray=neutral
 ```
 
 ### Setup some services

@@ -13,7 +13,7 @@ export const loader = ({ request, params }: LoaderFunctionArgs) => {
   const provider = params.provider as AuthStrategy
 
   return authService.authenticate(provider, request, {
-    successRedirect: "/user/dashboard",
+    successRedirect: "/home",
     failureRedirect: "/login",
   })
 }

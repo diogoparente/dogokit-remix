@@ -1,5 +1,5 @@
 import { useInputEvent, type FieldConfig } from "@conform-to/react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { type SelectSingleEventHandler } from "react-day-picker"
 
 import { IconMatch } from "~/components/libs/icon"
@@ -11,9 +11,17 @@ import { formatDateDMY } from "~/utils/datetime"
 
 export function DatePicker({
   className,
+  onChange,
+  yearPast = 100,
+  yearFuture = 20,
+  toYear,
   ...props
 }: {
+  onChange: (value: Date) => void
   className: string
+  toYear?: number
+  yearPast?: number
+  yearFuture?: number
 } & FieldConfig<string>) {
   const defaultDate =
     props.defaultValue && props.defaultValue !== "Invalid Date"
@@ -22,6 +30,10 @@ export function DatePicker({
 
   const [date, setDate] = useState<Date>(defaultDate)
   const shadowInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    onChange(date)
+  }, [date, onChange])
 
   const control = useInputEvent({
     ref: shadowInputRef,
@@ -64,8 +76,9 @@ export function DatePicker({
             selected={date}
             onSelect={setDate as SelectSingleEventHandler}
             defaultMonth={date}
-            yearPast={5}
-            yearFuture={5}
+            yearPast={yearPast}
+            yearFuture={yearFuture}
+            toYear={toYear}
           />
         </PopoverContent>
       </Popover>

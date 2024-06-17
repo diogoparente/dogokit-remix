@@ -25,6 +25,7 @@ export function ThemeButton({ ...props }: ThemeButtonProps) {
       className="hover:bg-primary hover:text-background"
       onClick={handleChangeTheme}
       aria-label="Toggle theme"
+      size="sm"
       {...props}
     >
       <IconMatch
