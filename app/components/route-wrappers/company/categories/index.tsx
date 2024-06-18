@@ -207,7 +207,7 @@ export const CompanyCategories = ({
           <Input
             type={"text"}
             onChange={onChange}
-            className="flex basis-1/2"
+            className="flex flex-1"
             value={categoryName}
             placeholder="Engineering, Finance, Human Resources, Marketing ..."
           />

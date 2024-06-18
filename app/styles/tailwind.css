@@ -27,9 +27,9 @@
     --card-foreground: var(--pure-white);
     --popover: 0 0% 100%;
     --popover-foreground: 229 84% 5%;
-    --primary: 161.38, 93.55%, 30.39%;
+    --primary: 238.42, 47.9%, 53.33%;
     --primary-foreground: var(--pure-white);
-    --secondary: 136.51, 71.24%, 30%;
+    --secondary: 238.6, 84.31%, 80%;
     --secondary-foreground: var(--black);
     --destructive: 0 85% 61%;
     --destructive-foreground: var(--pure-white);
@@ -47,9 +47,9 @@
     --card-foreground: var(--pure-white);
     --popover: 229 84% 5%;
     --popover-foreground: var(--pure-white);
-    --primary: 217.22, 91.22%, 49.8%;
+    --primary: 238.42, 47.9%, 53.33%;
     --primary-foreground: var(--pure-white);
-    --secondary: 211.7, 96.36%, 78.43%;
+    --secondary: 238.6, 84.31%, 80%;
     --secondary-foreground: var(--black);
     --destructive: 0 63% 31%;
     --destructive-foreground: var(--pure-white);
@@ -149,7 +149,7 @@
     @apply mx-auto w-full max-w-2xl;
   }
   .app-container {
-    @apply mx-auto flex flex-1 flex-col space-y-6 overflow-hidden p-4;
+    @apply flex flex-1 flex-col space-y-6 overflow-hidden p-4 md:mx-[10%];
   }
   .app-header {
     @apply flex w-full flex-wrap;

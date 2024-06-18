@@ -36,7 +36,7 @@ export function Logo({ variant, size, className, text }: LogoProps) {
     <span
       className={cn(logoVariants({ variant, size, className }), "duration-200 hover:scale-110")}
     >
-      <img src={theme === "dark" ? logoDark : logoLight} alt="logo" className="size-8" />
+      {/* <img src={theme === "dark" ? logoDark : logoLight} alt="logo" className="size-8" /> */}
       <span className="inline-flex flex-nowrap font-display text-text">{text}</span>
     </span>
   )

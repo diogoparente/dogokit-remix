@@ -90,7 +90,7 @@ export const SidenavAppNavigation = () => {
               <NavLink
                 className={cn(
                   appNavLinkClassNames,
-                  "hover:scale-110 hover:bg-secondary hover:text-background",
+                  "flex-1/5 hover:scale-110 hover:bg-secondary hover:text-background",
                 )}
                 to={item.path}
                 prefetch="intent"
@@ -102,7 +102,7 @@ export const SidenavAppNavigation = () => {
                 icon={item.icon!}
                 className={cn(
                   appNavLinkClassNames,
-                  "pointer-events-none size-10 bg-gray-200 text-black opacity-20",
+                  "pointer-events-none h-10 min-w-10 bg-gray-200 text-black opacity-20",
                 )}
               />
             )}
@@ -118,12 +118,12 @@ export const SidenavAppNavigation = () => {
     ))
 
   return (
-    <nav className="sticky flex min-h-full min-w-16 flex-col items-center gap-4 border-0 border-r p-2 pt-4">
-      {renderNavigationSection(userNavigationItems)}
-      {showManagerDivider ? <Separator /> : null}
-      {renderNavigationSection(managerNavigationItems)}
-      {showAdminDivider ? <Separator /> : null}
-      {renderNavigationSection(adminNavigationItems)}
+    <nav className="relative max-w-[100vw] border-0 md:min-h-full md:min-w-16 md:border-r">
+      <div className="flex items-center justify-around gap-4 p-2 pt-4 md:flex-col">
+        {renderNavigationSection(userNavigationItems)}
+        {renderNavigationSection(managerNavigationItems)}
+        {renderNavigationSection(adminNavigationItems)}
+      </div>
     </nav>
   )
 }

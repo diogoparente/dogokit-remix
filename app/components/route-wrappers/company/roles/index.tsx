@@ -207,7 +207,7 @@ export const CompanyRoles = ({
           <Input
             type={"text"}
             onChange={onChange}
-            className="flex basis-1/2"
+            className="flex flex-1"
             value={roleName}
             placeholder="Software Engineer, Senior Director, Chief Operations Officer"
           />
