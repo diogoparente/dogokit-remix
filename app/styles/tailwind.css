@@ -149,7 +149,7 @@
     @apply mx-auto w-full max-w-2xl;
   }
   .app-container {
-    @apply flex flex-1 flex-col space-y-6 overflow-hidden p-4 md:mx-[10%];
+    @apply mt-8 flex flex-1 flex-col space-y-6 overflow-hidden p-4 md:mx-[10%];
   }
   .app-header {
     @apply flex w-full flex-wrap;
@@ -157,6 +157,11 @@
   .app-section {
     @apply w-full max-w-7xl space-y-2;
   }
+
+  .app-row {
+    @apply mb-4 flex flex-1 items-center justify-center gap-2 lg:max-w-5xl lg:basis-1/2;
+  }
+
   .input-natural {
     @apply border-transparent bg-transparent p-0 placeholder:text-primary-foreground/30;
     @apply focus:border-transparent focus:outline-none;

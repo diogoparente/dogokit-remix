@@ -4,11 +4,16 @@ import { create } from "~/api/company-role/create.server"
 import { remove } from "~/api/company-role/delete.server"
 import { read } from "~/api/company-role/read.server"
 import { update } from "~/api/company-role/update.server"
+import { getUserSession } from "~/utils/session.server"
 
 export const loader = async ({ request }: ActionFunctionArgs) => {
-  // to-do: use companyId from parameter
+  const res = await getUserSession({ request })
 
-  return await read({ data: { companyId: "mock-company" } })
+  // to-do: add companyId absence handling
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const companyId = res?.userData?.company?.id!
+
+  return await read({ data: { companyId } })
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {

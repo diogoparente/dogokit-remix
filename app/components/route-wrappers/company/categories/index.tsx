@@ -10,6 +10,7 @@ import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { DialogContent } from "~/components/ui/dialog"
 import { Input } from "~/components/ui/input"
+import { Row } from "~/components/ui/row"
 import { SubTitle } from "~/components/ui/sub-title"
 import { SubTitleDescription } from "~/components/ui/sub-title-description"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
@@ -203,7 +204,7 @@ export const CompanyCategories = ({
 
     return (
       <Dialog.Root>
-        <div className="flex gap-2">
+        <Row>
           <Input
             type={"text"}
             onChange={onChange}
@@ -245,7 +246,7 @@ export const CompanyCategories = ({
               <IconMatch icon="plus" />
             </Button>
           )}
-        </div>
+        </Row>
         <Dialog.Portal>
           <Dialog.Overlay />
           <DialogContent>
@@ -281,10 +282,12 @@ export const CompanyCategories = ({
       <SubTitle>Categories</SubTitle>
       <SubTitleDescription>Manage all the organization's categories</SubTitleDescription>
       <Separator />
-      {companyCategories?.map(companyCategory => (
-        <CompanyCategory key={companyCategory.id} {...companyCategory} />
-      ))}
-      <CompanyCategory />
+      <center>
+        {companyCategories?.map(companyCategory => (
+          <CompanyCategory key={companyCategory.id} {...companyCategory} />
+        ))}
+        <CompanyCategory />
+      </center>
     </Card>
   )
 }

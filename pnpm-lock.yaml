@@ -233,9 +233,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
-      react-flagpack:
-        specifier: 1.2.0
-        version: 1.2.0(react@18.3.1)
       react-hook-form:
         specifier: ^7.51.4
         version: 7.51.4(react@18.3.1)
@@ -5706,11 +5703,6 @@ packages:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
       react: ^18.3.1
-
-  react-flagpack@1.2.0:
-    resolution: {integrity: sha512-qGhnBGg9lCHQ7AKu5wZ0pTvPACz0opLa0+hJ6zj9805jI016YjE8ggAj269GaIG/wyelmX/Qph/SWQecm0RFrQ==}
-    peerDependencies:
-      react: ^16.8.* || ^17.*
 
   react-hook-form@7.51.4:
     resolution: {integrity: sha512-V14i8SEkh+V1gs6YtD0hdHYnoL4tp/HX/A45wWQN15CYr9bFRmmRdYStSO5L65lCCZRF+kYiSKhm9alqbcdiVA==}
@@ -13172,10 +13164,6 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
-
-  react-flagpack@1.2.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   react-hook-form@7.51.4(react@18.3.1):
     dependencies:

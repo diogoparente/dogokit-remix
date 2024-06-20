@@ -1,5 +1,5 @@
+import { Container } from "~/components/ui/container"
 import { SubTitle } from "~/components/ui/sub-title"
-import { Title } from "~/components/ui/title"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
 
 import { CompanyCategories, type TCompanyCategory } from "./categories"
@@ -22,11 +22,7 @@ const Company = ({
 
   if (!userData) return null
   return (
-    <div className="app-container">
-      <div className="mb-8 flex items-center gap-2">
-        <Title>Company</Title>
-      </div>
-
+    <Container title="Company">
       <div className="flex flex-col gap-8">
         <SubTitle className="text-foreground">Manager</SubTitle>
         <div className="flex flex-col gap-4">
@@ -34,17 +30,14 @@ const Company = ({
             companyCategories={companyCategories}
             refetchCategories={refetchCategories}
           />
-          <CompanyRoles
-            companyRoles={companyRoles}
-            refetchRoles={refetchRoles}
-          />
+          <CompanyRoles companyRoles={companyRoles} refetchRoles={refetchRoles} />
         </div>
       </div>
       {/* <div className="flex flex-col gap-8">
         <SubTitle className="text-foreground">Settings</SubTitle>
         <CompanySettings />
       </div> */}
-    </div>
+    </Container>
   )
 }
 
