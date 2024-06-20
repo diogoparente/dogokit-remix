@@ -4,7 +4,7 @@ import { Link, NavLink } from "@remix-run/react"
 import { IndicatorUser } from "~/components/shared/indicator-user"
 import { Logo } from "~/components/shared/logo"
 import { ThemeButton } from "~/components/shared/theme-button"
-import { sideNavNavigationItems, type NavItem } from "~/configs/navigation"
+import { sideNavNavigationItems } from "~/configs/navigation"
 import { configSite } from "~/configs/site"
 import { useAppRole } from "~/hooks/use-app-role"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
@@ -13,7 +13,6 @@ import { cn } from "~/utils/cn"
 
 import { IconMatch } from "../libs/icon"
 import { ButtonLink } from "../ui/button-link"
-import { Separator } from "../ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 
 const appNavLinkClassNames = "flex gap-2 rounded-sm p-2"
@@ -68,61 +67,53 @@ export const AppNavigation = () => {
 export const SidenavAppNavigation = () => {
   const { isAdmin, isManager } = useAppRole()
 
-  const userNavigationItems = sideNavNavigationItems.filter(navItem => !navItem?.role)
-
-  const managerNavigationItems = isManager
-    ? sideNavNavigationItems.filter(navItem => navItem.role === "MANAGER")
-    : []
-
-  const adminNavigationItems = isAdmin
-    ? sideNavNavigationItems.filter(navItem => navItem.role === "ADMIN")
-    : []
-
-  const showManagerDivider = !!managerNavigationItems.length
-  const showAdminDivider = !!adminNavigationItems.length
-
-  const renderNavigationSection = (navItems: NavItem[]) =>
-    navItems.map(item => (
-      <TooltipProvider key={item.path} skipDelayDuration={300}>
-        <Tooltip>
-          <TooltipTrigger asChild disabled={!!item?.isReleased}>
-            {item?.isReleased ? (
-              <NavLink
-                className={cn(
-                  appNavLinkClassNames,
-                  "flex-1/5 hover:scale-110 hover:bg-secondary hover:text-background",
-                )}
-                to={item.path}
-                prefetch="intent"
-              >
-                {item?.icon ? <IconMatch icon={item?.icon} className="size-6" /> : null}
-              </NavLink>
-            ) : (
-              <IconMatch
-                icon={item.icon!}
-                className={cn(
-                  appNavLinkClassNames,
-                  "pointer-events-none h-10 min-w-10 bg-gray-200 text-black opacity-20",
-                )}
-              />
-            )}
-          </TooltipTrigger>
-          <TooltipPortal>
-            <TooltipContent side="right" sideOffset={5}>
-              {item.text}
-              <TooltipArrow />
-            </TooltipContent>
-          </TooltipPortal>
-        </Tooltip>
-      </TooltipProvider>
-    ))
-
   return (
     <nav className="relative max-w-[100vw] border-0 md:min-h-full md:min-w-16 md:border-r">
       <div className="flex items-center justify-around gap-4 p-2 pt-4 md:flex-col">
-        {renderNavigationSection(userNavigationItems)}
-        {renderNavigationSection(managerNavigationItems)}
-        {renderNavigationSection(adminNavigationItems)}
+        {sideNavNavigationItems
+          .filter(item => {
+            if (item.role === "ADMIN" && !isAdmin) {
+              return false
+            }
+            if (item.role === "MANAGER" && !isManager) {
+              return false
+            }
+            return true
+          })
+          .map(item => (
+            <TooltipProvider key={item.path} skipDelayDuration={300}>
+              <Tooltip>
+                <TooltipTrigger asChild disabled={!!item?.isReleased}>
+                  {item?.isReleased ? (
+                    <NavLink
+                      className={cn(
+                        appNavLinkClassNames,
+                        "flex-1/5 hover:scale-110 hover:bg-secondary hover:text-background",
+                      )}
+                      to={item.path}
+                      prefetch="intent"
+                    >
+                      {item?.icon ? <IconMatch icon={item?.icon} className="size-6" /> : null}
+                    </NavLink>
+                  ) : (
+                    <IconMatch
+                      icon={item.icon!}
+                      className={cn(
+                        appNavLinkClassNames,
+                        "pointer-events-none h-10 min-w-10 bg-gray-200 text-black opacity-20",
+                      )}
+                    />
+                  )}
+                </TooltipTrigger>
+                <TooltipPortal>
+                  <TooltipContent side="right" sideOffset={5}>
+                    {item.text}
+                    <TooltipArrow />
+                  </TooltipContent>
+                </TooltipPortal>
+              </Tooltip>
+            </TooltipProvider>
+          ))}
       </div>
     </nav>
   )

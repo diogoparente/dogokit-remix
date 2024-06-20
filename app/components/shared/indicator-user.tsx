@@ -87,7 +87,12 @@ function DropdownMenuGroupItems({ items }: { items: NavItem[] }) {
       {items.map(item => {
         const isLogout = item.path === "/logout"
         return (
-          <DropdownMenuItem key={item.path} isDestructive={isLogout} asChild>
+          <DropdownMenuItem
+            key={item.path}
+            isDestructive={isLogout}
+            disabled={!item.isReleased}
+            asChild
+          >
             <NavLink to={item.path} prefetch="intent">
               {item?.icon ? <IconMatch icon={item?.icon} className="me-2" /> : null}
               <span>{item.text}</span>

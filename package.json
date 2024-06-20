@@ -27,6 +27,7 @@
     "db:studio": "prisma studio --browser none",
     "debug:eslint": "DEBUG=eslint:cli-engine pnpm check:eslint",
     "dev": "remix dev --manual",
+    "dockerize": "docker build -f./Dockerfile . -t squadz",
     "fix": "pnpm /^fix:.*/",
     "fix:eslint": "eslint --cache --fix .",
     "fix:prettier": "prettier --cache --write '**/*.{js,mjs,cjs,ts,tsx,json,md,mdx}'",

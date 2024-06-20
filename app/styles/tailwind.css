@@ -31,6 +31,7 @@
     --primary-foreground: var(--pure-white);
     --secondary: 238.6, 84.31%, 80%;
     --secondary-foreground: var(--black);
+    --tertiary: 220, 14.29%, 95.88%;
     --destructive: 0 85% 61%;
     --destructive-foreground: var(--pure-white);
     --border: 215 32% 92%;
@@ -51,6 +52,7 @@
     --primary-foreground: var(--pure-white);
     --secondary: 238.6, 84.31%, 80%;
     --secondary-foreground: var(--black);
+    --tertiary: 216.92, 19.12%, 26.67%;
     --destructive: 0 63% 31%;
     --destructive-foreground: var(--pure-white);
     --border: 217.5, 8%, 19.61%;
@@ -122,7 +124,7 @@
     @apply mb-4 text-xl font-medium leading-none tracking-tight text-secondary;
   }
   .site-card {
-    @apply site-section-md rounded-md border-secondary border-opacity-5 bg-primary/60 p-4 shadow-md backdrop-blur-lg backdrop-filter;
+    @apply site-section-md rounded-md border-secondary border-opacity-5 bg-primary/60 p-10 shadow-md backdrop-blur-lg backdrop-filter;
 
     border-width: 0.5px;
   }

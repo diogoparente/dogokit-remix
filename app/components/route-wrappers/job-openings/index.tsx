@@ -17,13 +17,13 @@ const CreateRole = () => (
 )
 
 const OpenRoles = () => (
-  <div className="flex flex-1 flex-col gap-4 p-4">
+  <div className="flex flex-1 flex-col gap-10">
     {Object.entries(fakeRoles).map(([category, roles]) => (
-      <div key={category} className="flex flex-col gap-4">
-        <div className="text-2xl font-medium text-secondary">{category}</div>
-        <div key={category} className="flex flex-wrap gap-4">
+      <div key={category} className="flex flex-col">
+        <div className="mb-4 text-2xl font-medium text-secondary">{category}</div>
+        <div key={category} className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {roles.map(role => (
-            <Card isHoverable={true} key={role} className="max-w-96 flex-1">
+            <Card isHoverable={true} key={role}>
               <div className="flex justify-between">
                 {role}
                 <Button variant={"outline"}>View</Button>

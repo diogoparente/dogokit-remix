@@ -13,16 +13,17 @@ const userNavigationsItems = [
     path: "/home",
     text: "Home",
     icon: "house",
-  },
-  {
-    path: "/settings",
-    text: "Settings",
-    icon: "gear",
+    isReleased: true,
   },
   {
     path: "/account",
     text: "Account",
     icon: "user",
+  },
+  {
+    path: "/settings",
+    text: "Settings",
+    icon: "gear",
   },
 ]
 
@@ -33,22 +34,26 @@ export const configNavigationItems: NavItem[] = [
     path: "/user",
     text: "User",
     icon: "user",
+    isReleased: true,
   },
   {
     path: "/signup",
-    text: "Log In",
+    text: "Signup",
     icon: "user-plus",
+    isReleased: true,
   },
   {
     path: "/login",
     text: "Log In",
     icon: "sign-in",
+    isReleased: true,
     isAlwaysVisible: true,
   },
   {
     path: "/logout",
     text: "Log Out",
     icon: "sign-out",
+    isReleased: true,
     isAlwaysVisible: true,
   },
 ]
@@ -62,11 +67,6 @@ export const sideNavNavigationItems: NavItem[] = [
     isReleased: true,
   },
   {
-    path: "/time-off",
-    text: "Time off",
-    icon: "calendar-plus",
-  },
-  {
     path: "/job-listings",
     text: "Job listings",
     icon: "add-user",
@@ -74,10 +74,10 @@ export const sideNavNavigationItems: NavItem[] = [
     isReleased: true,
   },
   {
-    path: "/company/settings",
-    text: "Company settings",
-    icon: "gear",
-    role: "ADMIN",
-    isReleased: true,
+    path: "/time-off",
+    text: "Time off",
+    icon: "calendar-plus",
   },
+  userNavigationsItems[1]!,
+  userNavigationsItems[2]!,
 ]
