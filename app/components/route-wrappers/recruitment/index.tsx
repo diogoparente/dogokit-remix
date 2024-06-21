@@ -12,7 +12,7 @@ const fakeRoles: { [key: string]: string[] } = {
 
 const CreateRole = () => (
   <div className="flex flex-row justify-end p-4">
-    <ButtonLink to={"/job-listings/create"}>Create</ButtonLink>
+    <ButtonLink to={"/recruitment/create"}>Create</ButtonLink>
   </div>
 )
 
@@ -41,7 +41,7 @@ const JobOpenings = () => {
 
   if (!userData) return null
   return (
-    <Container title="Job Openings">
+    <Container title="Recruitment">
       <div className="flex flex-1 justify-between">
         <SubTitle className="text-foreground">Open Roles</SubTitle>
         <CreateRole />

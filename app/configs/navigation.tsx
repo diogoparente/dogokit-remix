@@ -67,8 +67,8 @@ export const sideNavNavigationItems: NavItem[] = [
     isReleased: true,
   },
   {
-    path: "/job-listings",
-    text: "Job listings",
+    path: "/recruitment",
+    text: "Recruitment",
     icon: "add-user",
     role: "MANAGER",
     isReleased: true,

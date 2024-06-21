@@ -1,12 +1,15 @@
 import { type MetaFunction } from "@remix-run/node"
 
 import { CenteredSection } from "~/components/layout/centered-section"
-import { JobOpenings } from "~/components/route-wrappers/job-openings"
+import { JobOpeningsManager } from "~/components/route-wrappers/recruitment/manager"
 import { GenericErrorMessage } from "~/components/shared/error-boundary"
 import { useAppRole } from "~/hooks/use-app-role"
 import { createMeta } from "~/utils/meta"
+import { createSitemap } from "~/utils/sitemap"
 
-export const meta: MetaFunction = () => createMeta({ title: `Job Openings`, description: `` })
+export const handle = createSitemap()
+
+export const meta: MetaFunction = () => createMeta({ title: `Recruitment` })
 
 export default function OnboardingRoute() {
   const { isManager } = useAppRole()
@@ -19,5 +22,9 @@ export default function OnboardingRoute() {
     )
   }
 
-  return <JobOpenings />
+  return (
+    <div className="relative">
+      <JobOpeningsManager />
+    </div>
+  )
 }

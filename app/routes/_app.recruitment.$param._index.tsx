@@ -4,7 +4,7 @@ import { z } from "zod"
 import { zx } from "zodix"
 
 import { CenteredSection } from "~/components/layout/centered-section"
-import { JobOpeningDetail } from "~/components/route-wrappers/job-openings/detail"
+import { JobOpeningDetail } from "~/components/route-wrappers/recruitment/detail"
 import { GenericErrorMessage } from "~/components/shared/error-boundary"
 import { useAppRole } from "~/hooks/use-app-role"
 import { modelJob } from "~/models/job-opening.server"

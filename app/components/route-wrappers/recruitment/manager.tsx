@@ -21,7 +21,7 @@ const JobOpeningsManager = () => {
   if (!userData) return null
   return (
     <div className="app-container">
-      <Title>Job Openings</Title>
+      <Title>Recruitment</Title>
       <SubTitle>Manager</SubTitle>
       <div className="flex flex-col gap-2">
         <div className="flex grow gap-2 ">
