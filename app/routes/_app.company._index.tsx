@@ -1,21 +1,13 @@
-import { parse } from "@conform-to/zod"
-import {
-  json,
-  type ActionFunctionArgs,
-  type LoaderFunctionArgs,
-  type MetaFunction,
-} from "@remix-run/node"
+import { type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useQuery } from "@tanstack/react-query"
 
 import { Company } from "~/components/route-wrappers/company"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
-import { modelCompanyCategory } from "~/models/company-category.server"
-import { modelCompanyRole } from "~/models/company-role.server"
-import { schemaGeneralId } from "~/schemas/general"
 import { createMeta } from "~/utils/meta"
-import { getUserSession } from "~/utils/session.server"
 import { createSitemap } from "~/utils/sitemap"
+
+import { loader as companyLoader } from "./api.company"
 
 export const handle = createSitemap()
 
@@ -80,31 +72,6 @@ export default function CompanyRoute() {
   )
 }
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData()
-  const submission = parse(formData, { schema: schemaGeneralId })
-  if (!submission.value || submission.intent !== "submit") {
-    return json(submission, { status: 400 })
-  }
-  return json(submission)
-}
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const res = await getUserSession({ request })
-
-  const companyId = res?.userData?.company?.id
-
-  const companyCategories = companyId
-    ? await modelCompanyCategory.getAll({
-        companyId,
-      })
-    : []
-
-  const companyRoles = companyId
-    ? await modelCompanyRole.getAll({
-        companyId,
-      })
-    : []
-
-  return { companyCategories, companyRoles }
+export const loader = async (req: LoaderFunctionArgs) => {
+  return await companyLoader(req)
 }
