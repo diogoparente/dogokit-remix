@@ -1,7 +1,7 @@
 import { type MetaFunction } from "@remix-run/node"
 
 import { CenteredSection } from "~/components/layout/centered-section"
-import { JobOpenings } from "~/components/route-wrappers/recruitment"
+import { Recruitment } from "~/components/route-wrappers/recruitment"
 import { GenericErrorMessage } from "~/components/shared/error-boundary"
 import { useAppRole } from "~/hooks/use-app-role"
 import { createMeta } from "~/utils/meta"
@@ -19,5 +19,5 @@ export default function OnboardingRoute() {
     )
   }
 
-  return <JobOpenings />
+  return <Recruitment />
 }

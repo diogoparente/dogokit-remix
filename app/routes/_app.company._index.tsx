@@ -57,17 +57,42 @@ function useCompanyRoles({ token }: { token?: string }) {
   return { refetchRoles: refetch, companyRoles }
 }
 
+function useCompanyLocations({ token }: { token?: string }) {
+  const { companyLocations: loaderCompanyLocations } = useLoaderData<typeof loader>()
+
+  const { data, refetch } = useQuery({
+    queryKey: ["company-locations"],
+    queryFn: async () =>
+      await fetch("/api/company-location", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(({ roles }) => roles),
+    enabled: !!token,
+  })
+
+  const companyLocations = data ?? loaderCompanyLocations
+
+  return { refetchLocations: refetch, companyLocations }
+}
+
 export default function CompanyRoute() {
   const { token } = useRootLoaderData()
   const { refetchCategories, companyCategories } = useCompanyCategories({ token })
   const { refetchRoles, companyRoles } = useCompanyRoles({ token })
+  const { refetchLocations, companyLocations } = useCompanyLocations({ token })
 
   return (
     <Company
       refetchCategories={refetchCategories}
       refetchRoles={refetchRoles}
+      refetchLocations={refetchLocations}
       companyCategories={companyCategories}
       companyRoles={companyRoles}
+      companyLocations={companyLocations}
     />
   )
 }

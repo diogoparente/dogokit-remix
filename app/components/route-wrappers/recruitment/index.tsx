@@ -36,7 +36,7 @@ const OpenRoles = () => (
   </div>
 )
 
-const JobOpenings = () => {
+const Recruitment = () => {
   const { userData } = useRootLoaderData()
 
   if (!userData) return null
@@ -53,4 +53,4 @@ const JobOpenings = () => {
   )
 }
 
-export { JobOpenings }
+export { Recruitment }

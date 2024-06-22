@@ -3,20 +3,25 @@ import { SubTitle } from "~/components/ui/sub-title"
 import { useRootLoaderData } from "~/hooks/use-root-loader-data"
 
 import { CompanyCategories, type TCompanyCategory } from "./categories"
+import { CompanyLocations, type TCompanyLocation } from "./locations"
 import { CompanyRoles, type TCompanyRole } from "./roles"
 
 export type TMode = "edit" | "add" | "delete" | null
 
 const Company = ({
   companyCategories,
-  refetchCategories,
+  companyLocations,
   companyRoles,
+  refetchCategories,
+  refetchLocations,
   refetchRoles,
 }: {
   companyCategories: TCompanyCategory[]
   refetchCategories: () => void
   companyRoles: TCompanyRole[]
   refetchRoles: () => void
+  companyLocations: TCompanyLocation[]
+  refetchLocations: () => void
 }) => {
   const { userData } = useRootLoaderData()
 
@@ -31,6 +36,10 @@ const Company = ({
             refetchCategories={refetchCategories}
           />
           <CompanyRoles companyRoles={companyRoles} refetchRoles={refetchRoles} />
+          <CompanyLocations
+            companyLocations={companyLocations}
+            refetchLocations={refetchLocations}
+          />
         </div>
       </div>
       {/* <div className="flex flex-col gap-8">

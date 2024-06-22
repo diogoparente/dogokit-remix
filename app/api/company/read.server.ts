@@ -1,4 +1,5 @@
 import { modelCompanyCategory } from "~/models/company-category.server"
+import { modelCompanyLocation } from "~/models/company-location.server"
 import { modelCompanyRole } from "~/models/company-role.server"
 
 export const read = async ({ data: { companyId } }: { data: { companyId: string } }) => {
@@ -14,5 +15,11 @@ export const read = async ({ data: { companyId } }: { data: { companyId: string 
       })
     : []
 
-  return { companyCategories, companyRoles }
+  const companyLocations = companyId
+    ? await modelCompanyLocation.getAll({
+        companyId,
+      })
+    : []
+
+  return { companyCategories, companyRoles, companyLocations }
 }

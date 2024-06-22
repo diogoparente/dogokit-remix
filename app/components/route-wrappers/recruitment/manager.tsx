@@ -15,7 +15,7 @@ const ManageRoles = () => {
   return <Card className="flex-1 grow">Manage roles</Card>
 }
 
-const JobOpeningsManager = () => {
+const RecruitmentManager = () => {
   const { userData } = useRootLoaderData()
 
   if (!userData) return null
@@ -37,4 +37,4 @@ const JobOpeningsManager = () => {
   )
 }
 
-export { JobOpeningsManager }
+export { RecruitmentManager }

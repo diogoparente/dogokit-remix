@@ -13,10 +13,11 @@ const SelectValue = SelectPrimitive.Value
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+>(({ className, children, value, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
+      `${value ? "text-foreground" : "text-gray-400 dark:text-gray-600"}`,
       "focus:ring-ring flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-primary-foreground/30 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
       className,
     )}
@@ -50,7 +51,7 @@ const SelectContent = React.forwardRef<
         className={cn(
           "p-1",
           position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] disabled:cursor-not-allowed disabled:opacity-50",
         )}
       >
         {children}
