@@ -210,54 +210,57 @@ export const CompanyLocations = ({
     return (
       <Dialog.Root>
         <Row>
-          <Select onValueChange={onChange} value={locationName} required>
-            <SelectTrigger value={locationName}>
-              <SelectValue className="flex flex-1" placeholder="Select a country" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup className="max-h-40 overflow-y-scroll">
-                {countries.map(({ country }) => (
-                  <SelectItem key={country} value={country}>
-                    <p className="inline-flex items-center gap-2">{country}</p>
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          {companyLocation?.id ? (
-            <div className="flex gap-2">
-              <Dialog.Trigger asChild>
-                <Button
-                  variant="outline"
-                  disabled={isEditDisabled}
-                  onClick={onEdit}
-                  isLoading={mode === "edit" && isFetching}
-                >
-                  <IconMatch icon="note-pencil" />
-                </Button>
-              </Dialog.Trigger>
-              <Dialog.Trigger asChild>
-                <Button
-                  variant="destructive"
-                  disabled={isDeleteDisabled}
-                  onClick={onDelete}
-                  isLoading={mode === "delete" && isFetching}
-                >
-                  <IconMatch icon="x" />
-                </Button>
-              </Dialog.Trigger>
-            </div>
-          ) : (
-            <Button
-              variant="default"
-              onClick={onAdd}
-              disabled={isAddDisabled}
-              isLoading={mode === "add" && isFetching}
-            >
-              <IconMatch icon="plus" />
-            </Button>
-          )}
+          <div className="flex max-w-48 basis-3/5 md:max-w-full md:basis-4/5">
+            <Select onValueChange={onChange} value={locationName} required>
+              <SelectTrigger value={locationName}>
+                <SelectValue placeholder="Select a country" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup className="max-h-40 overflow-y-scroll">
+                  {countries.map(({ country }) => (
+                    <SelectItem key={country} value={country}>
+                      <p className="inline-flex items-center gap-2">{country}</p>
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex basis-1/5 gap-2">
+            {companyLocation?.id ? (
+              <>
+                <Dialog.Trigger asChild>
+                  <Button
+                    variant="outline"
+                    disabled={isEditDisabled}
+                    onClick={onEdit}
+                    isLoading={mode === "edit" && isFetching}
+                  >
+                    <IconMatch icon="note-pencil" />
+                  </Button>
+                </Dialog.Trigger>
+                <Dialog.Trigger asChild>
+                  <Button
+                    variant="destructive"
+                    disabled={isDeleteDisabled}
+                    onClick={onDelete}
+                    isLoading={mode === "delete" && isFetching}
+                  >
+                    <IconMatch icon="x" />
+                  </Button>
+                </Dialog.Trigger>
+              </>
+            ) : (
+              <Button
+                variant="default"
+                onClick={onAdd}
+                disabled={isAddDisabled}
+                isLoading={mode === "add" && isFetching}
+              >
+                <IconMatch icon="plus" />
+              </Button>
+            )}
+          </div>
         </Row>
         <Dialog.Portal>
           <Dialog.Overlay />
@@ -290,17 +293,17 @@ export const CompanyLocations = ({
   }
 
   return (
-    <Card className="flex flex-1 grow flex-col gap-4">
-      <SubTitle>Locations</SubTitle>
-      <SubTitleDescription>Manage all the organization's locations</SubTitleDescription>
-      <Separator />
-      <center>
+    <Card className="flex flex-1 grow justify-center">
+      <div className="mx-[5%] flex max-w-5xl flex-1 flex-col gap-4">
+        <SubTitle>Locations</SubTitle>
+        <SubTitleDescription>Manage all the organization's locations</SubTitleDescription>
+        <Separator />
         {companyLocations?.map(companyLocation => (
           <CompanyLocation key={companyLocation.id} {...companyLocation} />
         ))}
 
         <CompanyLocation />
-      </center>
+      </div>
     </Card>
   )
 }

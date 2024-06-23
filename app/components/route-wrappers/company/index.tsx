@@ -30,7 +30,7 @@ const Company = ({
     <Container title="Company">
       <div className="flex flex-col gap-8">
         <SubTitle className="text-foreground">Manager</SubTitle>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-10">
           <CompanyCategories
             companyCategories={companyCategories}
             refetchCategories={refetchCategories}

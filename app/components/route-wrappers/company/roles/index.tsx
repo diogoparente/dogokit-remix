@@ -208,44 +208,46 @@ export const CompanyRoles = ({
           <Input
             type={"text"}
             onChange={onChange}
-            className="flex flex-1"
+            className="flex max-w-48 basis-3/5 md:max-w-full md:basis-4/5"
             value={roleName}
             placeholder="Software Engineer, Senior Director, Chief Operations Officer"
           />
-
-          {companyRole?.id ? (
-            <div className="flex gap-2">
-              <Dialog.Trigger asChild>
-                <Button
-                  variant="outline"
-                  disabled={isEditDisabled}
-                  onClick={onEdit}
-                  isLoading={mode === "edit" && isFetching}
-                >
-                  <IconMatch icon="note-pencil" />
-                </Button>
-              </Dialog.Trigger>
-              <Dialog.Trigger asChild>
-                <Button
-                  variant="destructive"
-                  disabled={isDeleteDisabled}
-                  onClick={onDelete}
-                  isLoading={mode === "delete" && isFetching}
-                >
-                  <IconMatch icon="x" />
-                </Button>
-              </Dialog.Trigger>
-            </div>
-          ) : (
-            <Button
-              variant="default"
-              onClick={onAdd}
-              disabled={isAddDisabled}
-              isLoading={mode === "add" && isFetching}
-            >
-              <IconMatch icon="plus" />
-            </Button>
-          )}
+          <div className="flex basis-1/5 gap-2">
+            {companyRole?.id ? (
+              <>
+                {" "}
+                <Dialog.Trigger asChild>
+                  <Button
+                    variant="outline"
+                    disabled={isEditDisabled}
+                    onClick={onEdit}
+                    isLoading={mode === "edit" && isFetching}
+                  >
+                    <IconMatch icon="note-pencil" />
+                  </Button>
+                </Dialog.Trigger>
+                <Dialog.Trigger asChild>
+                  <Button
+                    variant="destructive"
+                    disabled={isDeleteDisabled}
+                    onClick={onDelete}
+                    isLoading={mode === "delete" && isFetching}
+                  >
+                    <IconMatch icon="x" />
+                  </Button>
+                </Dialog.Trigger>
+              </>
+            ) : (
+              <Button
+                variant="default"
+                onClick={onAdd}
+                disabled={isAddDisabled}
+                isLoading={mode === "add" && isFetching}
+              >
+                <IconMatch icon="plus" />
+              </Button>
+            )}
+          </div>
         </Row>
         <Dialog.Portal>
           <Dialog.Overlay />
@@ -278,15 +280,15 @@ export const CompanyRoles = ({
   }
 
   return (
-    <Card className="flex flex-1 grow flex-col gap-4">
-      <SubTitle>Roles</SubTitle>
-      <SubTitleDescription>Manage all the organization's roles</SubTitleDescription>
-      <Separator />
-      <center>
+    <Card className="flex flex-1 grow justify-center">
+      <div className="mx-[5%] flex max-w-5xl flex-1 flex-col gap-4">
+        <SubTitle>Roles</SubTitle>
+        <SubTitleDescription>Manage all the organization's roles</SubTitleDescription>
+        <Separator />
         {companyRoles?.map(companyRole => <CompanyRole key={companyRole.id} {...companyRole} />)}
 
         <CompanyRole />
-      </center>
+      </div>
     </Card>
   )
 }

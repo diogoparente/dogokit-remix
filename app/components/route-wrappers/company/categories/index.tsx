@@ -208,44 +208,45 @@ export const CompanyCategories = ({
           <Input
             type={"text"}
             onChange={onChange}
-            className="flex flex-1"
+            className="flex max-w-48 basis-3/5 md:max-w-full md:basis-4/5"
             value={categoryName}
             placeholder="Engineering, Finance, Human Resources, Marketing ..."
           />
-
-          {companyCategory?.id ? (
-            <div className="flex gap-2">
-              <Dialog.Trigger asChild>
-                <Button
-                  variant="outline"
-                  disabled={isEditDisabled}
-                  onClick={onEdit}
-                  isLoading={mode === "edit" && isFetching}
-                >
-                  <IconMatch icon="note-pencil" />
-                </Button>
-              </Dialog.Trigger>
-              <Dialog.Trigger asChild>
-                <Button
-                  variant="destructive"
-                  disabled={isDeleteDisabled}
-                  onClick={onDelete}
-                  isLoading={mode === "delete" && isFetching}
-                >
-                  <IconMatch icon="x" />
-                </Button>
-              </Dialog.Trigger>
-            </div>
-          ) : (
-            <Button
-              variant="default"
-              onClick={onAdd}
-              disabled={isAddDisabled}
-              isLoading={mode === "add" && isFetching}
-            >
-              <IconMatch icon="plus" />
-            </Button>
-          )}
+          <div className="flex basis-1/5 gap-2">
+            {companyCategory?.id ? (
+              <>
+                <Dialog.Trigger asChild>
+                  <Button
+                    variant="outline"
+                    disabled={isEditDisabled}
+                    onClick={onEdit}
+                    isLoading={mode === "edit" && isFetching}
+                  >
+                    <IconMatch icon="note-pencil" />
+                  </Button>
+                </Dialog.Trigger>
+                <Dialog.Trigger asChild>
+                  <Button
+                    variant="destructive"
+                    disabled={isDeleteDisabled}
+                    onClick={onDelete}
+                    isLoading={mode === "delete" && isFetching}
+                  >
+                    <IconMatch icon="x" />
+                  </Button>
+                </Dialog.Trigger>
+              </>
+            ) : (
+              <Button
+                variant="default"
+                onClick={onAdd}
+                disabled={isAddDisabled}
+                isLoading={mode === "add" && isFetching}
+              >
+                <IconMatch icon="plus" />
+              </Button>
+            )}
+          </div>
         </Row>
         <Dialog.Portal>
           <Dialog.Overlay />
@@ -278,16 +279,17 @@ export const CompanyCategories = ({
   }
 
   return (
-    <Card className="flex flex-1 grow flex-col gap-4">
-      <SubTitle>Categories</SubTitle>
-      <SubTitleDescription>Manage all the organization's categories</SubTitleDescription>
-      <Separator />
-      <center>
+    <Card className="flex flex-1 grow justify-center">
+      <div className="mx-[5%] flex max-w-5xl flex-1 flex-col gap-4">
+        <SubTitle>Categories</SubTitle>
+        <SubTitleDescription>Manage all the organization's categories</SubTitleDescription>
+        <Separator />
+
         {companyCategories?.map(companyCategory => (
           <CompanyCategory key={companyCategory.id} {...companyCategory} />
         ))}
         <CompanyCategory />
-      </center>
+      </div>
     </Card>
   )
 }

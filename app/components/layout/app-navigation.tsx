@@ -68,7 +68,7 @@ export const SidenavAppNavigation = () => {
   const { isAdmin, isManager } = useAppRole()
 
   return (
-    <nav className="relative max-w-[100vw] border-0 md:min-h-full md:min-w-16 md:border-r">
+    <nav className="absolute z-[9999] w-screen border-0 border-t bg-background md:relative md:min-h-full md:w-16 md:border-r">
       <div className="flex items-center justify-around gap-4 p-2 pt-4 md:flex-col">
         {sideNavNavigationItems
           .filter(item => {
