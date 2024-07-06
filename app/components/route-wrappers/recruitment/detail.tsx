@@ -9,10 +9,7 @@ const JobOpeningDetail = () => {
     <div className="app-container">
       <header className="app-header items-center gap-2 sm:gap-4">
         <div>
-          <Title>Job Opening detail</Title>
-          <p className="text-primary-foreground">
-            <span>{userData.email}</span>
-          </p>
+          <Title>Create a new role</Title>
         </div>
       </header>
     </div>

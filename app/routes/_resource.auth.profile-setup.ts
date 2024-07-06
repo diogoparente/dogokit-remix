@@ -11,13 +11,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   let values: {
     fullname?: string
-    dateOfBirth?: Date
+    dateOfBirth?: string
     country?: string
     confirmPassword?: string
     password?: string
     token?: string
   } = {}
-  // Log the FormData entries
+
   for (const [key, value] of formData.entries()) {
     values = { ...values, [key]: value }
   }
@@ -57,7 +57,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   try {
     const email = verifiedToken.email
-
     const user = await modelUser.getByEmail({ email })
 
     if (!user) {
@@ -66,8 +65,17 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         { status: 400 },
       )
     }
+    console.log({ dateOfBirth })
+
     if (user && password) {
-      await modelUser.updatePassword({ id: user.id, password })
+      await modelUser.setupCompanyUser({
+        id: user.id,
+        password,
+        fullname,
+        email,
+        dateOfBirth,
+        country,
+      })
     }
   } catch (error) {
     console.log(error)

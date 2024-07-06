@@ -258,6 +258,30 @@ export const modelUser = {
     })
   },
 
+  async setupCompanyUser({
+    email,
+    id,
+    fullname,
+    password,
+    dateOfBirth,
+    country,
+  }: Pick<User, "fullname" | "email" | "id" | "dateOfBirth" | "country"> & { password: string }) {
+    console.log({ email, fullname })
+
+    return db.user.update({
+      where: { email, id },
+      data: {
+        fullname,
+        onboarded: true,
+        dateOfBirth,
+        country,
+        password: {
+          update: { hash: await hashPassword(password) },
+        },
+      },
+    })
+  },
+
   updateFullName({ id, fullname }: Pick<User, "id" | "fullname">) {
     return db.user.update({
       where: { id },

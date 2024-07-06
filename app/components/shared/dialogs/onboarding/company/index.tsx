@@ -103,7 +103,7 @@ const CompanySetup: React.FC<CompanySetupProps> = ({ onNext, token }) => {
             <FormField className="flex-1">
               <FormLabel htmlFor="country">Location</FormLabel>
               <Select onValueChange={value => setValue("location", value)} required>
-                <SelectTrigger>
+                <SelectTrigger value={location}>
                   <SelectValue placeholder="Select a country" />
                 </SelectTrigger>
                 <SelectContent>

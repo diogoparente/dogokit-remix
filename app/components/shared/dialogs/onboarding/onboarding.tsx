@@ -37,12 +37,10 @@ const useSteps = ({
   const prevStep = () => stepStep(prevStep => prevStep - 1)
 
   const onFinish = () => {
-    navigate("/home")
+    navigate("/home", { state: { key: "welcome" } })
   }
 
   useEffect(() => {
-    console.log({ isOnboarded, isAdmin })
-
     if (isOnboarded) {
       navigate("/home")
     }

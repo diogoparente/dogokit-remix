@@ -34,6 +34,10 @@ model User {
 
   fullname String?
   nickname String?
+  
+  dateOfBirth String?
+
+  country String?
 
   companyId String
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade, onUpdate: Cascade)

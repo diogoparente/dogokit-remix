@@ -1,5 +1,5 @@
 import { Form } from "@remix-run/react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { ButtonLoading } from "~/components/ui/button-loading"
@@ -64,6 +64,8 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ onNext, token }) => {
   const confirmPassword = watch("confirmPassword")
 
   useEffect(() => {
+    console.log({ fullname })
+
     if (fullname && country && dateOfBirth && password && confirmPassword) {
       setIsEnabled(true)
     } else {
@@ -85,7 +87,6 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ onNext, token }) => {
 
     if (onValidate()) {
       const formData = new FormData(event.currentTarget)
-
       formData.append("token", token)
       formData.append("fullname", fullname)
       formData.append("country", country)
@@ -130,6 +131,14 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ onNext, token }) => {
                 required
                 className="w-full"
                 onChange={e => setValue("fullname", e.target.value)}
+                // onInput={e => {
+                //   const {
+                //     target: { value },
+                //   } = e as React.ChangeEvent<HTMLInputElement>
+                //   console.log({ value })
+
+                //   setValue("fullname", value)
+                // }}
               />
             </FormField>
           </div>
@@ -137,7 +146,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({ onNext, token }) => {
             <FormField className="flex-1">
               <FormLabel htmlFor="country">Country</FormLabel>
               <Select onValueChange={value => setValue("country", value)} required>
-                <SelectTrigger>
+                <SelectTrigger value={country}>
                   <SelectValue placeholder="Select a country" />
                 </SelectTrigger>
                 <SelectContent>
